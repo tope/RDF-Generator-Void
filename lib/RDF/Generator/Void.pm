@@ -19,34 +19,39 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+  use RDF::Generator::Void;
+  use RDF::Trine::Model;
+  my $mymodel   = RDF::Trine::Model->temporary_model;
+  [add some data to $mymodel here]
+  my $generator = RDF::Generator::Void->new(inmodel => $mymodel);
+  my $voidmodel = $generator->generate;
 
-Perhaps a little code snippet.
+=head1 DESCRIPTION
 
-    use RDF::Generator::Void;
+This module takes a L<RDF::Trine::Model> object as input to the
+constructor, and based on the data in that model, it creates a new
+model with a voiD description of the data in the model.
 
-    my $foo = RDF::Generator::Void->new();
-    ...
+=head1 METHODS
 
-=head1 EXPORT
-
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
-
-=head1 SUBROUTINES/METHODS
-
-=head2 function1
+=head2 new(inmodel => $mymodel);
 
 =cut
 
-sub function1 {
+sub new {
+  my ($class, $mymodel) = @_; 
+  my $self = bless({mymodel => $mymodel}, $class);
+  return $self;
 }
 
-=head2 function2
+
+=head2 generate
 
 =cut
 
-sub function2 {
+sub generate {
+  my $self = shift;
+
 }
 
 =head1 AUTHOR
