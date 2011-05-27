@@ -5,9 +5,17 @@ all_from 'lib/RDF/Generator/Void.pm';
 author   q{Tope Omitola <tope.omitola@googlemail.com>};
 license  'perl';
 
-build_requires 'Test::More';
+test_requires 'Test::More' => 0.88;
+test_requires 'Test::RDF'  => 0.20;
 
-auto_install;
+requires 'RDF::Trine';
+
+author_tests('xt');
+
+auto_set_repository;
+auto_set_bugtracker;
+
+write_doap_changes;
 
 WriteAll;
 
