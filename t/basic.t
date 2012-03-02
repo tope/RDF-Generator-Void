@@ -21,10 +21,14 @@ $parser->parse_file_into_model( $base_uri, $testdata, $data_model );
 my $void_gen = RDF::Generator::Void->new(dataset_uri => $base_uri . '/dataset',
 													  inmodel => $data_model);
 
+isa_ok($void_gen, 'RDF::Generator::Void');
+
 my $void_model = $void_gen->generate($void_model);
+
+isa_ok($void_model, 'RDF::Trine::Model');
 
 $parser->parse_file_into_model( $base_uri, $expected, $expected_void_model );
 
-isomorph_graphs($void_model, $expected_void_model);
+isomorph_graphs($void_model, $expected_void_model, 'Got the expected VoID description');
 
 done_testing;
