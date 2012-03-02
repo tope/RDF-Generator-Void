@@ -122,7 +122,7 @@ L<http://search.cpan.org/dist/RDF-Generator-Void/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2011 Tope Omitola.
+Copyright 2012 Tope Omitola.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
