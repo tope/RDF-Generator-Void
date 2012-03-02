@@ -41,7 +41,6 @@ model with a voiD description of the data in the model.
 
 sub new {
   my ($class, %args) = @_;
-#  warn Data::Dumper::Dumper(%args);
   my $self = bless(\%args, $class);
   return $self;
 }
@@ -53,12 +52,20 @@ sub new {
 
 sub generate {
   my $self = shift;
+
+  # Create a model for adding VoID description
   my $void_model = RDF::Trine::Model->temporary_model;
+
+  # Define some namespace prefixes
   my $void = RDF::Trine::Namespace->new('http://rdfs.org/ns/void#');
   my $rdf = RDF::Trine::Namespace->new('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
   my $xsd = RDF::Trine::Namespace->new('http://www.w3.org/2001/XMLSchema#');
+
+  # Set some local variables that will be reused often
   my $uri = RDF::Trine::Node::Resource->new($self->{dataset_uri});
   my $model = $self->{inmodel};
+
+  # Start generating the actual VoID statements
   $void_model->add_statement(statement($uri,
 													$rdf->type,
 													$void->Dataset
