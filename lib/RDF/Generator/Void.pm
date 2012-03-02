@@ -74,6 +74,10 @@ sub generate {
 
 Tope Omitola, C<< <tope.omitola at googlemail.com> >>
 
+=head1 CONTRIBUTORS
+
+Kjetil Kjernsmo
+
 =head1 BUGS
 
 Please report any bugs or feature requests to C<bug-rdf-generator-void at rt.cpan.org>, or through
