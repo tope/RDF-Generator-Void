@@ -3,6 +3,7 @@ package RDF::Generator::Void;
 use 5.006;
 use strict;
 use warnings;
+use RDF::Trine qw[iri literal blank variable statement];
 
 =head1 NAME
 
@@ -34,13 +35,14 @@ model with a voiD description of the data in the model.
 
 =head1 METHODS
 
-=head2 new(inmodel => $mymodel);
+=head2 new(inmodel => $mymodel, dataset_uri = URI->new($dataset_uri);
 
 =cut
 
 sub new {
-  my ($class, $mymodel) = @_; 
-  my $self = bless({mymodel => $mymodel}, $class);
+  my ($class, %args) = @_;
+#  warn Data::Dumper::Dumper(%args);
+  my $self = bless(\%args, $class);
   return $self;
 }
 
@@ -51,7 +53,20 @@ sub new {
 
 sub generate {
   my $self = shift;
-
+  my $void_model = RDF::Trine::Model->temporary_model;
+  my $void = RDF::Trine::Namespace->new('http://rdfs.org/ns/void#');
+  my $rdf = RDF::Trine::Namespace->new('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+  my $uri = RDF::Trine::Node::Resource->new($self->{dataset_uri});
+  my $model = $self->{inmodel};
+  $void_model->add_statement(statement($uri,
+													$rdf->type,
+													$void->Dataset
+												  ));
+  $void_model->add_statement(statement($uri,
+													$void->triples,
+													literal($model->size)
+									 ));
+  return $void_model;
 }
 
 =head1 AUTHOR
