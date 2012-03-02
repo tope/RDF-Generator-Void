@@ -58,11 +58,11 @@ sub generate {
 
   # Define some namespace prefixes
   my $void = RDF::Trine::Namespace->new('http://rdfs.org/ns/void#');
-  my $rdf = RDF::Trine::Namespace->new('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-  my $xsd = RDF::Trine::Namespace->new('http://www.w3.org/2001/XMLSchema#');
+  my $rdf  = RDF::Trine::Namespace->new('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+  my $xsd  = RDF::Trine::Namespace->new('http://www.w3.org/2001/XMLSchema#');
 
   # Set some local variables that will be reused often
-  my $uri = RDF::Trine::Node::Resource->new($self->{dataset_uri});
+  my $uri   = iri($self->{dataset_uri});
   my $model = $self->{inmodel};
 
   # Start generating the actual VoID statements
