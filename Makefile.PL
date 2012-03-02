@@ -7,8 +7,10 @@ license  'perl';
 
 test_requires 'Test::More' => 0.88;
 test_requires 'Test::RDF'  => 0.20;
+test_requires 'FindBin';
 
 requires 'RDF::Trine';
+requires 'URI';
 
 author_tests('xt');
 
