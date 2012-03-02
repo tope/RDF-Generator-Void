@@ -56,6 +56,7 @@ sub generate {
   my $void_model = RDF::Trine::Model->temporary_model;
   my $void = RDF::Trine::Namespace->new('http://rdfs.org/ns/void#');
   my $rdf = RDF::Trine::Namespace->new('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+  my $xsd = RDF::Trine::Namespace->new('http://www.w3.org/2001/XMLSchema#');
   my $uri = RDF::Trine::Node::Resource->new($self->{dataset_uri});
   my $model = $self->{inmodel};
   $void_model->add_statement(statement($uri,
@@ -64,7 +65,7 @@ sub generate {
 												  ));
   $void_model->add_statement(statement($uri,
 													$void->triples,
-													literal($model->size)
+													literal($model->size, undef, $xsd->integer)
 									 ));
   return $void_model;
 }
