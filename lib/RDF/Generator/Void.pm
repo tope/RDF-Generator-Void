@@ -3,7 +3,14 @@ package RDF::Generator::Void;
 use 5.006;
 use strict;
 use warnings;
+use Any::Moose;
+use Data::UUID;
 use RDF::Trine qw[iri literal blank variable statement];
+
+# Define some namespace prefixes
+my $void = RDF::Trine::Namespace->new('http://rdfs.org/ns/void#');
+my $rdf  = RDF::Trine::Namespace->new('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+my $xsd  = RDF::Trine::Namespace->new('http://www.w3.org/2001/XMLSchema#');
 
 =head1 NAME
 
@@ -35,16 +42,36 @@ model with a voiD description of the data in the model.
 
 =head1 METHODS
 
-=head2 new(inmodel => $mymodel, dataset_uri = URI->new($dataset_uri);
+=head2 new(inmodel => $mymodel, dataset_uri = URI->new($dataset_uri));
+
+=head2 inmodel
+
+Read-only accessor
+
+=head2 dataset_uri
+
+Read-only accessor
 
 =cut
 
-sub new {
-  my ($class, %args) = @_;
-  my $self = bless(\%args, $class);
-  return $self;
-}
+has inmodel => (
+  is       => 'ro',
+  isa      => 'RDF::Trine::Model',
+  required => 1,
+  );
 
+has dataset_uri => (
+  is       => 'ro',
+  isa      => 'RDF::Trine::Node',
+  lazy     => 1,
+  builder  => '_build_dataset_uri',
+  );
+
+sub _build_dataset_uri
+{
+  my ($self) = @_;
+  return iri sprintf('urn:uuid:%s', Data::UUID->new->create_str);
+}
 
 =head2 generate
 
@@ -54,28 +81,32 @@ sub generate {
   my $self = shift;
 
   # Create a model for adding VoID description
+  local $self->{void_model} =
   my $void_model = RDF::Trine::Model->temporary_model;
 
-  # Define some namespace prefixes
-  my $void = RDF::Trine::Namespace->new('http://rdfs.org/ns/void#');
-  my $rdf  = RDF::Trine::Namespace->new('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-  my $xsd  = RDF::Trine::Namespace->new('http://www.w3.org/2001/XMLSchema#');
-
-  # Set some local variables that will be reused often
-  my $uri   = iri($self->{dataset_uri});
-  my $model = $self->{inmodel};
-
   # Start generating the actual VoID statements
-  $void_model->add_statement(statement($uri,
-													$rdf->type,
-													$void->Dataset
-												  ));
-  $void_model->add_statement(statement($uri,
-													$void->triples,
-													literal($model->size, undef, $xsd->integer)
-									 ));
+  $void_model->add_statement(statement(
+    $self->dataset_uri,
+    $rdf->type,
+    $void->Dataset,
+  ));
+  
+  $self->_generate_triple_count;
+  
   return $void_model;
 }
+
+sub _generate_triple_count
+{
+  my $self = @_;
+  
+  $self->{void_model}->add_statement(statement(
+    $self->dataset_uri,
+    $void->triples,
+    literal($self->inmodel->size, undef, $xsd->integer),
+  ));
+}
+
 
 =head1 AUTHOR
 
