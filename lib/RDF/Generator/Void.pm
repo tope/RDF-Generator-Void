@@ -4,6 +4,7 @@ use 5.006;
 use strict;
 use warnings;
 use Any::Moose;
+use Any::Moose '::Util::TypeConstraints';
 use Data::UUID;
 use RDF::Trine qw[iri literal blank variable statement];
 
@@ -23,7 +24,6 @@ Version 0.01
 =cut
 
 our $VERSION = '0.01';
-
 
 =head1 SYNOPSIS
 
@@ -60,11 +60,22 @@ has inmodel => (
   required => 1,
   );
 
+class_type 'URI';
+
+subtype 'DatasetURI',
+  as 'Object',
+  where { $_->isa('RDF::Trine::Node::Resource') || $_->isa('RDF::Trine::Node::Blank') };
+
+coerce 'DatasetURI',
+  from 'URI',    via { iri("$_") },
+  from 'Str',    via { iri($_) };
+
 has dataset_uri => (
   is       => 'ro',
-  isa      => 'RDF::Trine::Node',
+  isa      => 'DatasetURI',
   lazy     => 1,
   builder  => '_build_dataset_uri',
+  coerce   => 1,
   );
 
 sub _build_dataset_uri
@@ -73,12 +84,52 @@ sub _build_dataset_uri
   return iri sprintf('urn:uuid:%s', Data::UUID->new->create_str);
 }
 
+has is_speedy => (
+  is       => 'ro',
+  isa      => 'Bool',
+  default  => 0,
+  );
+
+has stats => (
+  is       => 'rw',
+  isa      => 'HashRef',
+  lazy     => 1,
+  builder  => '_build_stats',
+  clearer  => 'clear_stats',
+  );
+
+sub _build_stats
+{
+  my ($self) = @_;
+  
+  my (%vocab_counter);
+  
+  $self->inmodel->get_statements->each(sub
+  {
+    my $st = shift;
+    next unless $st->rdf_compatible;
+    
+    # wrap in eval, as this can potentially throw an exception.
+    eval {
+      my ($vocab_uri) = $st->predicate->qname;
+      $vocab_counter{$vocab_uri}++;
+    };
+  });
+  
+  return +{
+    vocabularies  => \%vocab_counter,
+  };
+}
+
 =head2 generate
 
 =cut
 
-sub generate {
+sub generate
+{
   my $self = shift;
+
+  $self->clear_stats;
 
   # Create a model for adding VoID description
   local $self->{void_model} =
@@ -92,19 +143,41 @@ sub generate {
   ));
   
   $self->_generate_triple_count;
+  $self->_generate_most_common_vocabs unless $self->is_speedy;
   
   return $void_model;
 }
 
 sub _generate_triple_count
 {
-  my $self = @_;
+  my ($self) = @_;
   
   $self->{void_model}->add_statement(statement(
     $self->dataset_uri,
     $void->triples,
     literal($self->inmodel->size, undef, $xsd->integer),
   ));
+}
+
+sub _generate_most_common_vocabs
+{
+  my ($self) = @_;
+
+  # Which vocabularies are most commonly used for predicates in the
+  # dataset? Vocabularies used for less than 1% of triples need not
+  # apply.
+  my $threshold = $self->inmodel->size / 100;
+  my %vocabs    = %{ $self->stats->{vocabularies} };
+  my @common    = grep { $vocabs{$_} > $threshold } keys %vocabs;
+  
+  foreach my $vocab (@common)
+  {
+    $self->{void_model}->add_statement(statement(
+      $self->dataset_uri,
+      $void->vocabulary,
+      iri($vocab),
+    ));
+  }
 }
 
 
