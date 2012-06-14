@@ -90,6 +90,32 @@ has is_speedy => (
   default  => 0,
   );
 
+has vocabulary => (
+						 is       => 'ro',
+						 traits   => ['Array'],
+						 isa      => 'ArrayRef[RDF::Trine::Node::Resource]',
+						 default  => sub { [] },
+						 handles  => {
+										 all_vocabularies    => 'elements',
+										 add_vocabulary      => 'push',
+										 map_vocabularies    => 'map',
+										 filter_vocabularies => 'grep',
+										 find_vocabulary     => 'first',
+										 get_vocabulary      => 'get',
+										 join_vocabularies   => 'join',
+										 count_vocabularies  => 'count',
+										 has_no_vocabularies => 'is_empty',
+										 sorted_vocabularies => 'sort',
+										},
+						 coerce   => 1,
+    );
+
+coerce 'RDF::Trine::Node::Resource',
+  from 'URI',    via { iri("$_") },
+  from 'Str',    via { iri($_) };
+
+
+
 has stats => (
   is       => 'rw',
   isa      => 'HashRef',
