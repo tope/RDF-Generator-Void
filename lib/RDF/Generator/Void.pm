@@ -15,7 +15,7 @@ my $xsd  = RDF::Trine::Namespace->new('http://www.w3.org/2001/XMLSchema#');
 
 =head1 NAME
 
-RDF::Generator::Void - The great new RDF::Generator::Void!
+RDF::Generator::Void - Generate voiD descriptions based on data in an RDF model
 
 =head1 VERSION
 
@@ -181,21 +181,15 @@ sub _generate_most_common_vocabs
 }
 
 
-=head1 AUTHOR
-
-Tope Omitola, C<< <tope.omitola at googlemail.com> >>
-
-=head1 CONTRIBUTORS
+=head1 AUTHORS
 
 Kjetil Kjernsmo
+Toby Inkster
+Tope Omitola, C<< <tope.omitola at googlemail.com> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-rdf-generator-void at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=RDF-Generator-Void>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
+Please report any bugs you find to L<https://github.com/tope/RDF-Generator-Void/issues>
 
 
 =head1 SUPPORT
@@ -204,14 +198,12 @@ You can find documentation for this module with the perldoc command.
 
     perldoc RDF::Generator::Void
 
+The Perl and RDF community website is at L<http://www.perlrdf.org/>
+where you can also find a mailing list to direct questions to.
 
 You can also look for information at:
 
 =over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=RDF-Generator-Void>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
@@ -233,7 +225,7 @@ L<http://search.cpan.org/dist/RDF-Generator-Void/>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2012 Tope Omitola.
+Copyright 2012 Tope Omitola, Kjetil Kjernsmo, Toby Inkster.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
