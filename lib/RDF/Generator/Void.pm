@@ -208,7 +208,7 @@ Tope Omitola, C<< <tope.omitola at googlemail.com> >>
 
 =head1 BUGS
 
-Please report any bugs you find to L<https://github.com/tope/RDF-Generator-Void/issues>
+Please report any bugs you find to L<https://github.com/kjetilk/RDF-Generator-Void/issues>
 
 
 =head1 SUPPORT
