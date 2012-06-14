@@ -91,12 +91,12 @@ has is_speedy => (
   );
 
 has vocabulary => (
-						 is       => 'ro',
+						 is       => 'rw',
 						 traits   => ['Array'],
-						 isa      => 'ArrayRef[RDF::Trine::Node::Resource]',
+						 isa      => 'ArrayRef[Str]',
 						 default  => sub { [] },
 						 handles  => {
-										 all_vocabularies    => 'elements',
+										 all_vocabularies    => 'uniq',
 										 add_vocabulary      => 'push',
 										 map_vocabularies    => 'map',
 										 filter_vocabularies => 'grep',
@@ -107,14 +107,7 @@ has vocabulary => (
 										 has_no_vocabularies => 'is_empty',
 										 sorted_vocabularies => 'sort',
 										},
-						 coerce   => 1,
     );
-
-coerce 'RDF::Trine::Node::Resource',
-  from 'URI',    via { iri("$_") },
-  from 'Str',    via { iri($_) };
-
-
 
 has stats => (
   is       => 'rw',
