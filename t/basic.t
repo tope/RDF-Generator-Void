@@ -2,7 +2,7 @@ use Test::More;
 use Test::RDF;
 use FindBin qw($Bin);
 use URI;
-use RDF::Trine;
+use RDF::Trine qw(literal);
 use RDF::Trine::Parser;
 
 my $base_uri = 'http://localhost';
@@ -38,6 +38,14 @@ my $test2_model = $void_gen->generate($void_model);
 are_subgraphs($test2_model, $expected_void_model, 'Got the expected VoID description with SPARQL');
 has_uri($base_uri . '/sparql', $test2_model, 'Has endpoint URL');
 
+$void_gen->add_title(literal('This is a title', 'en'), literal('Blåbærsyltetøy', 'nb'));
+
+
+my $test3_model = $void_gen->generate($void_model);
+
+are_subgraphs($test3_model, $expected_void_model, 'Got the expected VoID description with title');
+has_literal('This is a title', 'en', undef, $test3_model, 'Has title');
+has_literal('Blåbærsyltetøy', 'nb', undef, $test3_model, 'Has title with UTF8');
 
 my $testfinal_model = $void_gen->generate($void_model);
 

@@ -12,6 +12,7 @@ use RDF::Trine qw[iri literal blank variable statement];
 my $void = RDF::Trine::Namespace->new('http://rdfs.org/ns/void#');
 my $rdf  = RDF::Trine::Namespace->new('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 my $xsd  = RDF::Trine::Namespace->new('http://www.w3.org/2001/XMLSchema#');
+my $dct  = RDF::Trine::Namespace->new('http://purl.org/dc/terms/');
 
 =head1 NAME
 
@@ -128,6 +129,26 @@ has endpoint => (
 										 },
     );
 
+has title => (
+						 is       => 'rw',
+						 traits   => ['Array'],
+						 isa      => 'ArrayRef[RDF::Trine::Node::Literal]',
+						 default  => sub { [] },
+						 handles  => {
+										 all_titles    => 'uniq',
+										 add_title    => 'push',
+										 map_titles    => 'map',
+										 filter_title => 'grep',
+										 find_title     => 'first',
+										 get_title      => 'get',
+										 join_titles   => 'join',
+										 count_titles  => 'count',
+										 has_no_title => 'is_empty',
+										 sorted_title => 'sort',
+										 },
+    );
+
+
 has stats => (
   is       => 'rw',
   isa      => 'HashRef',
@@ -179,12 +200,20 @@ sub generate
     $rdf->type,
     $void->Dataset,
   ));
-  warn $self->join_endpoints("\n");
+
   foreach my $endpoint ($self->all_endpoints) {
 	  $void_model->add_statement(statement(
 														$self->dataset_uri,
 														$void->sparqlEndpoint,
 														iri($endpoint)
+													  ));
+  }
+
+  foreach my $title ($self->all_titles) {
+	  $void_model->add_statement(statement(
+														$self->dataset_uri,
+														$dct->title,
+														$title
 													  ));
   }
  
