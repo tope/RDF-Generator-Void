@@ -23,14 +23,25 @@ my $void_gen = RDF::Generator::Void->new(dataset_uri => $base_uri . '/dataset',
 
 isa_ok($void_gen, 'RDF::Generator::Void');
 
-my $void_model = $void_gen->generate($void_model);
+my $test1_model = $void_gen->generate($void_model);
 
-isa_ok($void_model, 'RDF::Trine::Model');
+isa_ok($test1_model, 'RDF::Trine::Model');
 
 $parser->parse_file_into_model( $base_uri, $expected, $expected_void_model );
 
-are_subgraphs($expected_void_model, $void_model, 'Got the expected VoID description');
+are_subgraphs($test1_model, $expected_void_model, 'Got the expected VoID description with generated data');
 
-diag(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($void_model));
+$void_gen->add_endpoints($base_uri . '/sparql');
+
+my $test2_model = $void_gen->generate($void_model);
+
+are_subgraphs($test2_model, $expected_void_model, 'Got the expected VoID description with SPARQL');
+has_uri($base_uri . '/sparql', $test2_model, 'Has endpoint URL');
+
+
+my $testfinal_model = $void_gen->generate($void_model);
+
+diag(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($testfinal_model));
+isomorph_graphs($expected_void_model, $testfinal_model, 'Got the expected complete VoID description');
 
 done_testing;

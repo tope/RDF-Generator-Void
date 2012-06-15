@@ -12,4 +12,5 @@
 
 </dataset> a void:Dataset ;
 	   void:triples 3 ;
+	   void:sparqlEndpoint <http://localhost/sparql> ;	
 	   void:vocabulary <http://www.w3.org/2000/01/rdf-schema#>, <http://xmlns.com/foaf/0.1/> .

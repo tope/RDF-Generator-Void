@@ -109,6 +109,25 @@ has vocabulary => (
 										},
     );
 
+has endpoint => (
+						 is       => 'rw',
+						 traits   => ['Array'],
+						 isa      => 'ArrayRef[Str]',
+						 default  => sub { [] },
+						 handles  => {
+										 all_endpoints    => 'uniq',
+										 add_endpoints    => 'push',
+										 map_endpoints    => 'map',
+										 filter_endpoints => 'grep',
+										 find_endpoint     => 'first',
+										 get_endpoint      => 'get',
+										 join_endpoints   => 'join',
+										 count_endpoints  => 'count',
+										 has_no_endpoints => 'is_empty',
+										 sorted_endpoints => 'sort',
+										 },
+    );
+
 has stats => (
   is       => 'rw',
   isa      => 'HashRef',
@@ -160,7 +179,16 @@ sub generate
     $rdf->type,
     $void->Dataset,
   ));
-  
+  warn $self->join_endpoints("\n");
+  foreach my $endpoint ($self->all_endpoints) {
+	  $void_model->add_statement(statement(
+														$self->dataset_uri,
+														$void->sparqlEndpoint,
+														iri($endpoint)
+													  ));
+  }
+ 
+
   $self->_generate_triple_count;
   $self->_generate_most_common_vocabs unless $self->is_speedy;
   
