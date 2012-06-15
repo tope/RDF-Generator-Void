@@ -148,6 +148,25 @@ has title => (
 										 },
     );
 
+has license => (
+						 is       => 'rw',
+						 traits   => ['Array'],
+						 isa      => 'ArrayRef[Str]',
+						 default  => sub { [] },
+						 handles  => {
+										 all_licenses    => 'uniq',
+										 add_licenses    => 'push',
+										 map_licenses    => 'map',
+										 filter_license => 'grep',
+										 find_license     => 'first',
+										 get_license      => 'get',
+										 join_licenses   => 'join',
+										 count_licenses  => 'count',
+										 has_no_license => 'is_empty',
+										 sorted_license => 'sort',
+										 },
+    );
+
 
 has stats => (
   is       => 'rw',
@@ -217,6 +236,14 @@ sub generate
 													  ));
   }
  
+  foreach my $license ($self->all_licenses) {
+	  $void_model->add_statement(statement(
+														$self->dataset_uri,
+														$dct->license,
+														iri($license)
+													  ));
+  }
+
 
   $self->_generate_triple_count;
   $self->_generate_most_common_vocabs unless $self->is_speedy;

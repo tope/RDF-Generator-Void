@@ -12,6 +12,7 @@
 
 </dataset> a void:Dataset ;
 	   dcterms:title "This is a title"@en, "Blåbærsyltetøy"@nb ;
+	   dcterms:license <http://example.org/open-data-license> ;
 	   void:triples 3 ;
 	   void:sparqlEndpoint <http://localhost/sparql> ;	
 	   void:vocabulary <http://www.w3.org/2000/01/rdf-schema#>, <http://xmlns.com/foaf/0.1/> .

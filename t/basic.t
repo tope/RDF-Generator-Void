@@ -38,14 +38,23 @@ $test_model = $void_gen->generate($void_model);
 are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with SPARQL');
 has_uri($base_uri . '/sparql', $test_model, 'Has endpoint URL');
 
+
+
 $void_gen->add_title(literal('This is a title', 'en'), literal('Blåbærsyltetøy', 'nb'));
-
-
-my $test_model = $void_gen->generate($void_model);
+$test_model = $void_gen->generate($void_model);
 
 are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with title');
 has_literal('This is a title', 'en', undef, $test_model, 'Has title');
 has_literal('Blåbærsyltetøy', 'nb', undef, $test_model, 'Has title with UTF8');
+
+$void_gen->add_licenses('http://example.org/open-data-license');
+
+$test_model = $void_gen->generate($void_model);
+
+are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with license');
+has_uri('http://example.org/open-data-license', $test_model, 'Has license URL');
+
+
 
 my $testfinal_model = $void_gen->generate($void_model);
 
