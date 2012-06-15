@@ -40,7 +40,7 @@ has_uri($base_uri . '/sparql', $test_model, 'Has endpoint URL');
 
 
 
-$void_gen->add_title(literal('This is a title', 'en'), literal('Blåbærsyltetøy', 'nb'));
+$void_gen->add_titles(literal('This is a title', 'en'), literal('Blåbærsyltetøy', 'nb'));
 $test_model = $void_gen->generate($void_model);
 
 are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with title');
