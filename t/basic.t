@@ -23,29 +23,29 @@ my $void_gen = RDF::Generator::Void->new(dataset_uri => $base_uri . '/dataset',
 
 isa_ok($void_gen, 'RDF::Generator::Void');
 
-my $test1_model = $void_gen->generate($void_model);
+my $test_model = $void_gen->generate($void_model);
 
-isa_ok($test1_model, 'RDF::Trine::Model');
+isa_ok($test_model, 'RDF::Trine::Model');
 
 $parser->parse_file_into_model( $base_uri, $expected, $expected_void_model );
 
-are_subgraphs($test1_model, $expected_void_model, 'Got the expected VoID description with generated data');
+are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with generated data');
 
 $void_gen->add_endpoints($base_uri . '/sparql');
 
-my $test2_model = $void_gen->generate($void_model);
+$test_model = $void_gen->generate($void_model);
 
-are_subgraphs($test2_model, $expected_void_model, 'Got the expected VoID description with SPARQL');
-has_uri($base_uri . '/sparql', $test2_model, 'Has endpoint URL');
+are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with SPARQL');
+has_uri($base_uri . '/sparql', $test_model, 'Has endpoint URL');
 
 $void_gen->add_title(literal('This is a title', 'en'), literal('Blåbærsyltetøy', 'nb'));
 
 
-my $test3_model = $void_gen->generate($void_model);
+my $test_model = $void_gen->generate($void_model);
 
-are_subgraphs($test3_model, $expected_void_model, 'Got the expected VoID description with title');
-has_literal('This is a title', 'en', undef, $test3_model, 'Has title');
-has_literal('Blåbærsyltetøy', 'nb', undef, $test3_model, 'Has title with UTF8');
+are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with title');
+has_literal('This is a title', 'en', undef, $test_model, 'Has title');
+has_literal('Blåbærsyltetøy', 'nb', undef, $test_model, 'Has title with UTF8');
 
 my $testfinal_model = $void_gen->generate($void_model);
 
