@@ -1,0 +1,25 @@
+@prefix :     <http://usefulinc.com/ns/doap#> .
+@prefix dc:   <http://purl.org/dc/terms/> .
+@prefix my:   <http://purl.org/NET/cpan-uri/dist/Test-RDF/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcs:  <http://ontologi.es/doap-changeset#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+<>
+    dc:title     "DOAP for RDF-Generator-Void"@en ;
+    dc:subject   my:project ;
+    dc:creator   <http://www.kjetil.kjernsmo.net/foaf#me> .
+
+my:project	 
+    a           :Project ;
+    :name       "RDF-Generator-Void" ;
+    :shortdesc  "Generate voiD descriptions based on data in an RDF model."@en ;
+    :created    "2012-06-15"^^xsd:date ;
+    :programming-language "Perl" ;
+    :maintainer <http://www.kjetil.kjernsmo.net/foaf#me>,  <http://tobyinkster.co.uk/#i> ;
+    :helper <http://data.semanticweb.org/person/tope-omitola> ;
+    :bug-database <https://github.com/kjetilk/RDF-Generator-Void/issues> .
+
+
