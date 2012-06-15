@@ -31,6 +31,6 @@ $parser->parse_file_into_model( $base_uri, $expected, $expected_void_model );
 
 are_subgraphs($expected_void_model, $void_model, 'Got the expected VoID description');
 
-#diag(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($void_model));
+diag(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($void_model));
 
 done_testing;

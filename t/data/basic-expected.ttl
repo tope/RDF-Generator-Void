@@ -11,4 +11,5 @@
 
 
 </dataset> a void:Dataset ;
-	   void:triples 3 .
+	   void:triples 3 ;
+	   void:vocabulary <http://www.w3.org/2000/01/rdf-schema#>, <http://xmlns.com/foaf/0.1/> .

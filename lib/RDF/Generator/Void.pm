@@ -97,7 +97,7 @@ has vocabulary => (
 						 default  => sub { [] },
 						 handles  => {
 										 all_vocabularies    => 'uniq',
-										 add_vocabulary      => 'push',
+										 add_vocabularies    => 'push',
 										 map_vocabularies    => 'map',
 										 filter_vocabularies => 'grep',
 										 find_vocabulary     => 'first',
@@ -187,9 +187,9 @@ sub _generate_most_common_vocabs
   # apply.
   my $threshold = $self->inmodel->size / 100;
   my %vocabs    = %{ $self->stats->{vocabularies} };
-  my @common    = grep { $vocabs{$_} > $threshold } keys %vocabs;
+  $self->add_vocabularies(grep { $vocabs{$_} > $threshold } keys %vocabs);
   
-  foreach my $vocab (@common)
+  foreach my $vocab ($self->all_vocabularies)
   {
     $self->{void_model}->add_statement(statement(
       $self->dataset_uri,
