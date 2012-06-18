@@ -12,7 +12,7 @@ test_requires 'FindBin';
 
 requires 'RDF::Trine';
 requires 'URI';
-requires 'Data::UUID':
+requires 'Data::UUID';
 requires 'Any::Moose';
 
 author_tests('xt');
@@ -23,7 +23,7 @@ resources
   bugtracker    => "https://github.com/kjetilk/RDF-Generator-Void/issues";
 
 rdf_metadata;
-write_doap_changes;
+#write_doap_changes;
 
 sign;
 
