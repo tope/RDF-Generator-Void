@@ -185,7 +185,7 @@ sub _build_stats
 {
   my ($self) = @_;
   
-  my (%vocab_counter);
+  my (%vocab_counter, %entities);
   
   $self->inmodel->get_statements->each(sub
   {
@@ -197,10 +197,18 @@ sub _build_stats
       my ($vocab_uri) = $st->predicate->qname;
       $vocab_counter{$vocab_uri}++;
     };
+
+	 if ($self->has_urispace) {
+		 # Compute entities
+		 (my $urispace = $self->urispace) =~ s/\./\\./g;
+		 $entities{$st->subject->uri_value} = 1 if ($st->subject->uri_value =~ m/^$urispace/);
+	 }
+	 
   });
   
   return +{
     vocabularies  => \%vocab_counter,
+	 entities => scalar keys %entities,
   };
 }
 
@@ -243,8 +251,13 @@ sub generate
 														$self->dataset_uri,
 														$void->uriSpace,
 														literal($self->urispace)
-														)
-										 );
+													  ));
+	  $void_model->add_statement(statement(
+														$self->dataset_uri,
+														$void->entities,
+														literal($self->stats->{entities}, undef, $xsd->integer),
+													  ));
+
   }
 
   foreach my $endpoint ($self->all_endpoints) {
