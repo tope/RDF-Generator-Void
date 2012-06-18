@@ -7,6 +7,7 @@ use Any::Moose;
 use Any::Moose '::Util::TypeConstraints';
 use Data::UUID;
 use RDF::Trine qw[iri literal blank variable statement];
+use less ();
 
 # Define some namespace prefixes
 my $void = RDF::Trine::Namespace->new('http://rdfs.org/ns/void#');
@@ -47,7 +48,7 @@ model with a voiD description of the data in the model.
 
 =head1 METHODS
 
-=head2 new(inmodel => $mymodel, dataset_uri = URI->new($dataset_uri));
+=head2 new(inmodel => $mymodel, dataset_uri => URI->new($dataset_uri));
 
 =head2 inmodel
 
@@ -88,12 +89,6 @@ sub _build_dataset_uri
   my ($self) = @_;
   return iri sprintf('urn:uuid:%s', Data::UUID->new->create_str);
 }
-
-has is_speedy => (
-  is       => 'ro',
-  isa      => 'Bool',
-  default  => 0,
-  );
 
 has vocabulary => (
 						 is       => 'rw',
@@ -205,6 +200,17 @@ sub _build_stats
 
 =head2 generate
 
+Returns the voiD as an RDF::Trine::Model.
+
+For larger models, you may be able to achieve a significant improvement
+in speed using:
+
+  use less 'CPU';
+  $voidmodel = $generator->generate;
+
+Though to save CPU some of the more interesting statistics will not have
+been generated.
+
 =cut
 
 sub generate
@@ -212,6 +218,8 @@ sub generate
   my $self = shift;
 
   $self->clear_stats;
+
+  my $less_of = less->can('of') || sub { 0 };
 
   # Create a model for adding VoID description
   local $self->{void_model} =
@@ -250,7 +258,7 @@ sub generate
 
 
   $self->_generate_triple_count;
-  $self->_generate_most_common_vocabs unless $self->is_speedy;
+  $self->_generate_most_common_vocabs unless $less_of->('CPU');
   
   return $void_model;
 }
