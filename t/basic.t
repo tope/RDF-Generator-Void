@@ -54,6 +54,14 @@ $test_model = $void_gen->generate($void_model);
 are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with license');
 has_uri('http://example.org/open-data-license', $test_model, 'Has license URL');
 
+$void_gen->urispace($base_uri);
+
+$test_model = $void_gen->generate($void_model);
+
+are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with urispace');
+has_literal($base_uri, undef, undef, $test_model, 'Has urispace');
+
+
 
 
 my $testfinal_model = $void_gen->generate($void_model);

@@ -166,6 +166,12 @@ has license => (
 										 },
     );
 
+has urispace => (
+					  is        => 'rw',
+					  isa       => 'Str',
+					  predicate => 'has_urispace',
+					 );
+
 
 has stats => (
   is       => 'rw',
@@ -231,6 +237,15 @@ sub generate
     $rdf->type,
     $void->Dataset,
   ));
+
+  if ($self->has_urispace) {
+	  $void_model->add_statement(statement(
+														$self->dataset_uri,
+														$void->uriSpace,
+														literal($self->urispace)
+														)
+										 );
+  }
 
   foreach my $endpoint ($self->all_endpoints) {
 	  $void_model->add_statement(statement(
