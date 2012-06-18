@@ -3,7 +3,7 @@ NAME
     RDF model
 
 VERSION
-    Version 0.01_01
+    Version 0.01_11
 
     Note that this is an early alpha release. It has pretty limited
     functionality, and there may very significant changes in this module
@@ -23,7 +23,7 @@ DESCRIPTION
     with a voiD description of the data in the model.
 
 METHODS
-  new(inmodel => $mymodel, dataset_uri = URI->new($dataset_uri));
+  new(inmodel => $mymodel, dataset_uri => URI->new($dataset_uri));
   inmodel
     Read-only accessor
 
@@ -31,6 +31,17 @@ METHODS
     Read-only accessor
 
   generate
+    Returns the voiD as an RDF::Trine::Model.
+
+    For larger models, you may be able to achieve a significant improvement
+    in speed using:
+
+      use less 'CPU';
+      $voidmodel = $generator->generate;
+
+    Though to save CPU some of the more interesting statistics will not have
+    been generated.
+
 AUTHORS
     Kjetil Kjernsmo Toby Inkster Tope Omitola, "<tope.omitola at
     googlemail.com>"
