@@ -7,6 +7,7 @@ use Moose;
 use Moose::Util::TypeConstraints;
 use Data::UUID;
 use RDF::Trine qw[iri literal blank variable statement];
+use RDF::Generator::Void::Stats;
 # use less ();
 
 # Define some namespace prefixes
@@ -172,48 +173,13 @@ has urispace => (
 					 );
 
 
-has stats => (
-				  is       => 'rw',
-				  isa      => 'HashRef',
-				  lazy     => 1,
-				  builder  => '_build_stats',
-				  clearer  => 'clear_stats',
-				 );
-
-sub _build_stats {
-	my ($self) = @_;
-  
-	my (%vocab_counter, %entities, %properties, %subjects, %objects);
-  
-	$self->inmodel->get_statements->each(sub {
-		my $st = shift;
-		next unless $st->rdf_compatible;
-		
-		# wrap in eval, as this can potentially throw an exception.
-		eval {
-			my ($vocab_uri) = $st->predicate->qname;
-			$vocab_counter{$vocab_uri}++;
-		};
-		
-		if ($self->has_urispace) {
-			# Compute entities
-			(my $urispace = $self->urispace) =~ s/\./\\./g;
-			$entities{$st->subject->uri_value} = 1 if ($st->subject->uri_value =~ m/^$urispace/);
-		}
-		
-		$subjects{$st->subject->uri_value} = 1;
-		$properties{$st->predicate->uri_value} = 1;
-		$objects{$st->object->sse} = 1;
-	});
-	
-	return +{
-				vocabularies  => \%vocab_counter,
-				entities => scalar keys %entities,
-				properties => scalar keys %properties,
-				subjects => scalar keys %subjects,
-				objects => scalar keys %objects,
-			  };
-}
+#has stats => (
+#				  is       => 'rw',
+#				  isa      => 'HashRef',
+#				  lazy     => 1,
+#				  builder  => '_build_stats',
+#				  clearer  => 'clear_stats',
+#				 );
 
 =head2 generate
 
@@ -224,7 +190,8 @@ Returns the voiD as an RDF::Trine::Model.
 sub generate {
 	my $self = shift;
 
-	$self->clear_stats;
+#	$self->clear_stats;
+	my $stats = RDF::Generator::Void::Stats->new(generator => $self);
 
 	# Create a model for adding VoID description
 	local $self->{void_model} =
@@ -246,7 +213,7 @@ sub generate {
 		$void_model->add_statement(statement(
 														 $self->dataset_uri,
 														 $void->entities,
-														 literal($self->stats->{entities}, undef, $xsd->integer),
+														 literal($stats->{entities}, undef, $xsd->integer),
 														));
 
 	}
@@ -254,17 +221,17 @@ sub generate {
 	$void_model->add_statement(statement(
 													 $self->dataset_uri,
 													 $void->distinctSubjects,
-													 literal($self->stats->{subjects}, undef, $xsd->integer),
+													 literal($stats->{subjects}, undef, $xsd->integer),
 													));
 	$void_model->add_statement(statement(
 													 $self->dataset_uri,
 													 $void->properties,
-													 literal($self->stats->{properties}, undef, $xsd->integer),
+													 literal($stats->{properties}, undef, $xsd->integer),
 													));
 	$void_model->add_statement(statement(
 													 $self->dataset_uri,
 													 $void->distinctObjects,
-													 literal($self->stats->{objects}, undef, $xsd->integer),
+													 literal($stats->{objects}, undef, $xsd->integer),
 													));
 
 
@@ -294,7 +261,7 @@ sub generate {
 
 
 	$self->_generate_triple_count;
-	$self->_generate_most_common_vocabs;
+	$self->_generate_most_common_vocabs($stats);
   
 	return $void_model;
 }
@@ -310,13 +277,13 @@ sub _generate_triple_count {
 }
 
 sub _generate_most_common_vocabs {
-	my ($self) = @_;
+	my ($self, $stats) = @_;
 
 	# Which vocabularies are most commonly used for predicates in the
 	# dataset? Vocabularies used for less than 1% of triples need not
 	# apply.
 	my $threshold = $self->inmodel->size / 100;
-	my %vocabs    = %{ $self->stats->{vocabularies} };
+	my %vocabs    = %{ $stats->{vocabularies} };
 	$self->add_vocabularies(grep { $vocabs{$_} > $threshold } keys %vocabs);
   
 	foreach my $vocab ($self->all_vocabularies) {
