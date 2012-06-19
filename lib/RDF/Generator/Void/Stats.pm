@@ -18,6 +18,10 @@ Typically called for you by L<RDF::Generator::Void> as:
 
 =head2 METHODS
 
+=head3 C<< BUILD >>
+
+Called by Moose to initialize an object.
+
 =head3 C<generator>
 
 Parameter to the constructor, to pass a L<RDF::Generator::Void> object.
