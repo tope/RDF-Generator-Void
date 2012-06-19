@@ -15,6 +15,9 @@
 	   dcterms:license <http://example.org/open-data-license> ;
 	   void:triples 3 ;
 	   void:entities 2 ;
+	   void:properties 2 ;
+	   void:distinctSubjects 2 ;
+	   void:distinctObjects 3 ;
 	   void:uriSpace "http://localhost";
 	   void:sparqlEndpoint <http://localhost/sparql> ;	
 	   void:vocabulary <http://www.w3.org/2000/01/rdf-schema#>, <http://xmlns.com/foaf/0.1/> .

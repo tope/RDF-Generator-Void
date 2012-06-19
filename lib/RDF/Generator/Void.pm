@@ -185,7 +185,7 @@ sub _build_stats
 {
   my ($self) = @_;
   
-  my (%vocab_counter, %entities);
+  my (%vocab_counter, %entities, %properties, %subjects, %objects);
   
   $self->inmodel->get_statements->each(sub
   {
@@ -203,12 +203,20 @@ sub _build_stats
 		 (my $urispace = $self->urispace) =~ s/\./\\./g;
 		 $entities{$st->subject->uri_value} = 1 if ($st->subject->uri_value =~ m/^$urispace/);
 	 }
-	 
+
+	 $subjects{$st->subject->uri_value} = 1;
+	 $properties{$st->predicate->uri_value} = 1;
+	 $objects{$st->object->sse} = 1;
+
+
   });
-  
+
   return +{
     vocabularies  => \%vocab_counter,
 	 entities => scalar keys %entities,
+    properties => scalar keys %properties,
+	 subjects => scalar keys %subjects,
+	 objects => scalar keys %objects,
   };
 }
 
@@ -223,8 +231,6 @@ sub generate
   my $self = shift;
 
   $self->clear_stats;
-
-
 
   # Create a model for adding VoID description
   local $self->{void_model} =
@@ -250,6 +256,23 @@ sub generate
 													  ));
 
   }
+
+  $void_model->add_statement(statement(
+													$self->dataset_uri,
+													$void->distinctSubjects,
+													literal($self->stats->{subjects}, undef, $xsd->integer),
+												  ));
+  $void_model->add_statement(statement(
+													$self->dataset_uri,
+													$void->properties,
+													literal($self->stats->{properties}, undef, $xsd->integer),
+												  ));
+  $void_model->add_statement(statement(
+													$self->dataset_uri,
+													$void->distinctObjects,
+													literal($self->stats->{objects}, undef, $xsd->integer),
+												  ));
+
 
   foreach my $endpoint ($self->all_endpoints) {
 	  $void_model->add_statement(statement(
