@@ -338,7 +338,37 @@ Kjetil Kjernsmo C<< <kjetilk@cpan.org> >>
 Toby Inkster C<< <tobyink@cpan.org> >>
 Tope Omitola, C<< <tope.omitola at googlemail.com> >>
 
-=head1
+=head1 TODO
+
+=over
+
+=item * Allow arbitrary RDF to be added to the VoID.
+
+=item * Larger test dataset for more extensive tests.
+
+=item * URI regexps support.
+
+=item * Partitioning based on properties and classes.
+
+=item * Technical features (esp. serializations).
+
+=item * Example resources and root resources.
+
+=item * Data dumps.
+
+=item * Subject classification.
+
+=item * Method to disable heuristics.
+
+=item * More heuristics.
+
+=item * Linkset descriptions.
+
+=item * Set URI space on partitions.
+
+=item * Conditional updates based on model ETags.
+
+=back
 
 
 =head1 BUGS
