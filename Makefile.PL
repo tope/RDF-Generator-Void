@@ -13,7 +13,8 @@ test_requires 'FindBin';
 requires 'RDF::Trine';
 requires 'URI';
 requires 'Data::UUID';
-requires 'Moose';
+
+requires_any_moose 'MouseX::NativeTraits';
 
 author_tests('xt');
 
