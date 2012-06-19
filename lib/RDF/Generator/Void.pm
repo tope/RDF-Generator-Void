@@ -84,11 +84,10 @@ has dataset_uri => (
 						  coerce   => 1,
 						 );
 
-sub _build_dataset_uri
-  {
-	  my ($self) = @_;
-	  return iri sprintf('urn:uuid:%s', Data::UUID->new->create_str);
-  }
+sub _build_dataset_uri {
+	my ($self) = @_;
+	return iri sprintf('urn:uuid:%s', Data::UUID->new->create_str);
+}
 
 has vocabulary => (
 						 is       => 'rw',
@@ -181,11 +180,10 @@ has stats => (
 				  clearer  => 'clear_stats',
 				 );
 
-sub _build_stats
-  {
-	  my ($self) = @_;
+sub _build_stats {
+	my ($self) = @_;
   
-	  my (%vocab_counter, %entities, %properties, %subjects, %objects);
+	my (%vocab_counter, %entities, %properties, %subjects, %objects);
   
 	  $self->inmodel->get_statements->each(sub
 				{
@@ -224,115 +222,112 @@ Returns the voiD as an RDF::Trine::Model.
 
 =cut
 
-sub generate
-  {
-	  my $self = shift;
+sub generate {
+	my $self = shift;
 
-	  $self->clear_stats;
+	$self->clear_stats;
 
-	  # Create a model for adding VoID description
-	  local $self->{void_model} =
-		 my $void_model = RDF::Trine::Model->temporary_model;
+	# Create a model for adding VoID description
+	local $self->{void_model} =
+	  my $void_model = RDF::Trine::Model->temporary_model;
 
-	  # Start generating the actual VoID statements
-	  $void_model->add_statement(statement(
-														$self->dataset_uri,
-														$rdf->type,
-														$void->Dataset,
-													  ));
+	# Start generating the actual VoID statements
+	$void_model->add_statement(statement(
+													 $self->dataset_uri,
+													 $rdf->type,
+													 $void->Dataset,
+													));
 
-	  if ($self->has_urispace) {
-		  $void_model->add_statement(statement(
-															$self->dataset_uri,
-															$void->uriSpace,
-															literal($self->urispace)
-														  ));
-		  $void_model->add_statement(statement(
-															$self->dataset_uri,
-															$void->entities,
-															literal($self->stats->{entities}, undef, $xsd->integer),
-														  ));
+	if ($self->has_urispace) {
+		$void_model->add_statement(statement(
+														 $self->dataset_uri,
+														 $void->uriSpace,
+														 literal($self->urispace)
+														));
+		$void_model->add_statement(statement(
+														 $self->dataset_uri,
+														 $void->entities,
+														 literal($self->stats->{entities}, undef, $xsd->integer),
+														));
 
-	  }
+	}
 
-	  $void_model->add_statement(statement(
-														$self->dataset_uri,
-														$void->distinctSubjects,
-														literal($self->stats->{subjects}, undef, $xsd->integer),
-													  ));
-	  $void_model->add_statement(statement(
-														$self->dataset_uri,
-														$void->properties,
-														literal($self->stats->{properties}, undef, $xsd->integer),
-													  ));
-	  $void_model->add_statement(statement(
-														$self->dataset_uri,
-														$void->distinctObjects,
-														literal($self->stats->{objects}, undef, $xsd->integer),
-													  ));
+	$void_model->add_statement(statement(
+													 $self->dataset_uri,
+													 $void->distinctSubjects,
+													 literal($self->stats->{subjects}, undef, $xsd->integer),
+													));
+	$void_model->add_statement(statement(
+													 $self->dataset_uri,
+													 $void->properties,
+													 literal($self->stats->{properties}, undef, $xsd->integer),
+													));
+	$void_model->add_statement(statement(
+													 $self->dataset_uri,
+													 $void->distinctObjects,
+													 literal($self->stats->{objects}, undef, $xsd->integer),
+													));
 
 
-	  foreach my $endpoint ($self->all_endpoints) {
-		  $void_model->add_statement(statement(
-															$self->dataset_uri,
-															$void->sparqlEndpoint,
-															iri($endpoint)
-														  ));
-	  }
+	foreach my $endpoint ($self->all_endpoints) {
+		$void_model->add_statement(statement(
+														 $self->dataset_uri,
+														 $void->sparqlEndpoint,
+														 iri($endpoint)
+														));
+	}
 
-	  foreach my $title ($self->all_titles) {
-		  $void_model->add_statement(statement(
-															$self->dataset_uri,
-															$dct->title,
-															$title
-														  ));
-	  }
+	foreach my $title ($self->all_titles) {
+		$void_model->add_statement(statement(
+														 $self->dataset_uri,
+														 $dct->title,
+														 $title
+														));
+	}
  
-	  foreach my $license ($self->all_licenses) {
-		  $void_model->add_statement(statement(
-															$self->dataset_uri,
-															$dct->license,
-															iri($license)
-														  ));
-	  }
+	foreach my $license ($self->all_licenses) {
+		$void_model->add_statement(statement(
+														 $self->dataset_uri,
+														 $dct->license,
+														 iri($license)
+														));
+	}
 
 
-	  $self->_generate_triple_count;
-	  $self->_generate_most_common_vocabs;
+	$self->_generate_triple_count;
+	$self->_generate_most_common_vocabs;
   
-	  return $void_model;
-  }
+	return $void_model;
+}
 
-sub _generate_triple_count
-  {
-	  my ($self) = @_;
+sub _generate_triple_count {
+	my ($self) = @_;
   
-	  $self->{void_model}->add_statement(statement(
-																  $self->dataset_uri,
-																  $void->triples,
-																  literal($self->inmodel->size, undef, $xsd->integer),
-																 ));
-  }
+	$self->{void_model}->add_statement(statement(
+																$self->dataset_uri,
+																$void->triples,
+																literal($self->inmodel->size, undef, $xsd->integer),
+															  ));
+}
 
-sub _generate_most_common_vocabs
-  {
-	  my ($self) = @_;
+sub _generate_most_common_vocabs {
+	my ($self) = @_;
 
-	  # Which vocabularies are most commonly used for predicates in the
-	  # dataset? Vocabularies used for less than 1% of triples need not
-	  # apply.
-	  my $threshold = $self->inmodel->size / 100;
-	  my %vocabs    = %{ $self->stats->{vocabularies} };
-	  $self->add_vocabularies(grep { $vocabs{$_} > $threshold } keys %vocabs);
+	# Which vocabularies are most commonly used for predicates in the
+	# dataset? Vocabularies used for less than 1% of triples need not
+	# apply.
+	my $threshold = $self->inmodel->size / 100;
+	my %vocabs    = %{ $self->stats->{vocabularies} };
+	$self->add_vocabularies(grep { $vocabs{$_} > $threshold } keys %vocabs);
   
-	  foreach my $vocab ($self->all_vocabularies) {
-		  $self->{void_model}->add_statement(statement(
-																	  $self->dataset_uri,
-																	  $void->vocabulary,
-																	  iri($vocab),
-																	 ));
-	  }
-  }
+	foreach my $vocab ($self->all_vocabularies) {
+		$self->{void_model}->add_statement(statement(
+																	$self->dataset_uri,
+																	$void->vocabulary,
+																	iri($vocab),
+																  ));
+	}
+}
 
 
 =head1 AUTHORS
