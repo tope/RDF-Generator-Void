@@ -20,6 +20,7 @@ $parser->parse_file_into_model( $base_uri, $testdata, $data_model );
 
 my $void_gen = RDF::Generator::Void->new(dataset_uri => $base_uri . '/dataset',
 													  inmodel => $data_model);
+$void_gen->urispace($base_uri);
 
 isa_ok($void_gen, 'RDF::Generator::Void');
 
@@ -54,7 +55,6 @@ $test_model = $void_gen->generate($void_model);
 are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with license');
 has_uri('http://example.org/open-data-license', $test_model, 'Has license URL');
 
-$void_gen->urispace($base_uri);
 
 $test_model = $void_gen->generate($void_model);
 

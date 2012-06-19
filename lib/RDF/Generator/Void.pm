@@ -173,13 +173,20 @@ has urispace => (
 					 );
 
 
-#has stats => (
-#				  is       => 'rw',
-#				  isa      => 'HashRef',
-#				  lazy     => 1,
-#				  builder  => '_build_stats',
-#				  clearer  => 'clear_stats',
-#				 );
+has stats => (
+				  is       => 'rw',
+				  isa      => 'RDF::Generator::Void::Stats',
+				  lazy     => 1,
+				  builder  => '_build_stats',
+				  clearer  => 'clear_stats',
+				  predicate => 'has_stats',
+				 );
+
+sub _build_stats {
+	my ($self) = @_;
+	return RDF::Generator::Void::Stats->new(generator => $self);
+}
+
 
 =head2 generate
 
@@ -189,9 +196,6 @@ Returns the voiD as an RDF::Trine::Model.
 
 sub generate {
 	my $self = shift;
-
-#	$self->clear_stats;
-	my $stats = RDF::Generator::Void::Stats->new(generator => $self);
 
 	# Create a model for adding VoID description
 	local $self->{void_model} =
@@ -210,29 +214,12 @@ sub generate {
 														 $void->uriSpace,
 														 literal($self->urispace)
 														));
-		$void_model->add_statement(statement(
-														 $self->dataset_uri,
-														 $void->entities,
-														 literal($stats->{entities}, undef, $xsd->integer),
-														));
-
+		$self->_generate_counts($void->entities, $self->stats->entities);
 	}
 
-	$void_model->add_statement(statement(
-													 $self->dataset_uri,
-													 $void->distinctSubjects,
-													 literal($stats->{subjects}, undef, $xsd->integer),
-													));
-	$void_model->add_statement(statement(
-													 $self->dataset_uri,
-													 $void->properties,
-													 literal($stats->{properties}, undef, $xsd->integer),
-													));
-	$void_model->add_statement(statement(
-													 $self->dataset_uri,
-													 $void->distinctObjects,
-													 literal($stats->{objects}, undef, $xsd->integer),
-													));
+	$self->_generate_counts($void->distinctSubjects, $self->stats->subjects);
+	$self->_generate_counts($void->properties, $self->stats->properties);
+	$self->_generate_counts($void->distinctObjects, $self->stats->objects);
 
 
 	foreach my $endpoint ($self->all_endpoints) {
@@ -260,30 +247,34 @@ sub generate {
 	}
 
 
-	$self->_generate_triple_count;
-	$self->_generate_most_common_vocabs($stats);
+	$void_model->add_statement(statement(
+													 $self->dataset_uri,
+													 $void->triples,
+													 literal($self->inmodel->size, undef, $xsd->integer),
+													));
+	$self->_generate_most_common_vocabs($self->stats) if $self->has_stats;
   
 	return $void_model;
 }
 
-sub _generate_triple_count {
-	my ($self) = @_;
-  
+sub _generate_counts {
+	my ($self, $predicate, $count) = @_;
+	return undef unless $self->has_stats;
 	$self->{void_model}->add_statement(statement(
 																$self->dataset_uri,
-																$void->triples,
-																literal($self->inmodel->size, undef, $xsd->integer),
+																$predicate,
+																literal($count, undef, $xsd->integer),
 															  ));
 }
 
 sub _generate_most_common_vocabs {
-	my ($self, $stats) = @_;
+	my ($self) = @_;
 
 	# Which vocabularies are most commonly used for predicates in the
 	# dataset? Vocabularies used for less than 1% of triples need not
 	# apply.
 	my $threshold = $self->inmodel->size / 100;
-	my %vocabs    = %{ $stats->{vocabularies} };
+	my %vocabs    = %{ $self->stats->vocabularies };
 	$self->add_vocabularies(grep { $vocabs{$_} > $threshold } keys %vocabs);
   
 	foreach my $vocab ($self->all_vocabularies) {

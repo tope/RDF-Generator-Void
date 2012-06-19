@@ -25,7 +25,7 @@ sub BUILD {
 	my ($self) = @_;
   
 	my (%vocab_counter, %entities, %properties, %subjects, %objects);
-  warn "FOOOBAR";
+
 	my $gen = $self->generator;
 	$gen->inmodel->get_statements->each(sub {
 		my $st = shift;
@@ -36,7 +36,7 @@ sub BUILD {
 			my ($vocab_uri) = $st->predicate->qname;
 			$vocab_counter{$vocab_uri}++;
 		};
-		
+
 		if ($gen->has_urispace) {
 			# Compute entities
 			(my $urispace = $gen->urispace) =~ s/\./\\./g;
