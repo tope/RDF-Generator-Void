@@ -332,8 +332,8 @@ sub _generate_most_common_vocabs {
 
 =head1 AUTHORS
 
-Kjetil Kjernsmo
-Toby Inkster
+Kjetil Kjernsmo C<< <kjetilk@cpan.org> >>
+Toby Inkster C<< <tobyink@cpan.org> >>
 Tope Omitola, C<< <tope.omitola at googlemail.com> >>
 
 =head1 BUGS
