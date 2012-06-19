@@ -98,14 +98,7 @@ has vocabulary => (
 						 handles  => {
 										  all_vocabularies    => 'uniq',
 										  add_vocabularies    => 'push',
-										  map_vocabularies    => 'map',
-										  filter_vocabularies => 'grep',
-										  find_vocabulary     => 'first',
-										  get_vocabulary      => 'get',
-										  join_vocabularies   => 'join',
-										  count_vocabularies  => 'count',
 										  has_no_vocabularies => 'is_empty',
-										  sorted_vocabularies => 'sort',
 										 },
 						);
 
@@ -117,14 +110,7 @@ has endpoint => (
 					  handles  => {
 										all_endpoints    => 'uniq',
 										add_endpoints    => 'push',
-										map_endpoints    => 'map',
-										filter_endpoints => 'grep',
-										find_endpoint     => 'first',
-										get_endpoint      => 'get',
-										join_endpoints   => 'join',
-										count_endpoints  => 'count',
 										has_no_endpoints => 'is_empty',
-										sorted_endpoints => 'sort',
 									  },
 					 );
 
@@ -136,14 +122,7 @@ has title => (
 				  handles  => {
 									all_titles    => 'uniq',
 									add_titles    => 'push',
-									map_titles    => 'map',
-									filter_title => 'grep',
-									find_title     => 'first',
-									get_title      => 'get',
-									join_titles   => 'join',
-									count_titles  => 'count',
 									has_no_title => 'is_empty',
-									sorted_title => 'sort',
 								  },
 				 );
 
@@ -155,14 +134,7 @@ has license => (
 					 handles  => {
 									  all_licenses    => 'uniq',
 									  add_licenses    => 'push',
-									  map_licenses    => 'map',
-									  filter_license => 'grep',
-									  find_license     => 'first',
-									  get_license      => 'get',
-									  join_licenses   => 'join',
-									  count_licenses  => 'count',
 									  has_no_license => 'is_empty',
-									  sorted_license => 'sort',
 									 },
 					);
 
