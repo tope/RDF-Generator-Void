@@ -208,7 +208,9 @@ has urispace => (
 					  predicate => 'has_urispace',
 					 );
 
-=head2 C<stats>, C<clear_stats>, C<has_stats>
+=head2 Running this stuff
+
+=head3 C<stats>, C<clear_stats>, C<has_stats>
 
 Method to compute a statistical summary for the data in the dataset,
 such as the number of entities, predicates, etc. C<clear_stats> will
@@ -231,7 +233,7 @@ sub _build_stats {
 }
 
 
-=head2 generate
+=head3 generate
 
 Returns the VoID as an RDF::Trine::Model.
 
@@ -335,6 +337,9 @@ sub _generate_most_common_vocabs {
 Kjetil Kjernsmo C<< <kjetilk@cpan.org> >>
 Toby Inkster C<< <tobyink@cpan.org> >>
 Tope Omitola, C<< <tope.omitola at googlemail.com> >>
+
+=head1
+
 
 =head1 BUGS
 
