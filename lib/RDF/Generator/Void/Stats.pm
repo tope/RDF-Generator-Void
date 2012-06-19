@@ -3,7 +3,7 @@ package RDF::Generator::Void::Stats;
 use 5.006;
 use strict;
 use warnings;
-use Any::Moose;
+use Moose;
 
 =head1 NAME
 
