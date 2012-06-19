@@ -5,6 +5,48 @@ use strict;
 use warnings;
 use Any::Moose;
 
+=head1 NAME
+
+RDF::Generator::Void::Stats - Generate statistics needed for good VoID descriptions
+
+=head1 SYNOPSIS
+
+Typically called for you by L<RDF::Generator::Void> as:
+
+  my $stats = RDF::Generator::Void::Stats->new(generator => $self);
+
+
+=head2 METHODS
+
+=head3 C<generator>
+
+Parameter to the constructor, to pass a L<RDF::Generator::Void> object.
+
+=head3 C<vocabularies>
+
+A hashref used to find common vocabularies in the data.
+
+=head3 C<entities>
+
+The number of distinct entities, as defined in the specification.
+
+=head3 C<properties>
+
+The number of distinct properties, as defined in the specification.
+
+=head3 C<subjects>
+
+The number of distinct subjects, as defined in the specification.
+
+=head3 C<objects>
+
+The number of distinct objects, as defined in the specification.
+
+
+
+=cut
+
+
 has vocabularies => ( is => 'rw', isa => 'HashRef' );
 
 has entities => ( is => 'rw', isa => 'Int' );
@@ -56,5 +98,16 @@ sub BUILD {
 	
 }
 
+=head1 FURTHER DOCUMENTATION
+
+Please see L<RDF::Generator::Void> for further documentation.
+
+=head1 AUTHORS AND COPYRIGHT
+
+
+Please see L<RDF::Generator::Void> for information about authors and copyright for this module.
+
+
+=cut
 
 1;
