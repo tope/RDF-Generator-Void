@@ -185,36 +185,35 @@ sub _build_stats {
   
 	my (%vocab_counter, %entities, %properties, %subjects, %objects);
   
-	  $self->inmodel->get_statements->each(sub
-				{
-					my $st = shift;
-					next unless $st->rdf_compatible;
-
-					# wrap in eval, as this can potentially throw an exception.
-					eval {
-						my ($vocab_uri) = $st->predicate->qname;
-						$vocab_counter{$vocab_uri}++;
-					};
-
-					if ($self->has_urispace) {
-						# Compute entities
-						(my $urispace = $self->urispace) =~ s/\./\\./g;
-						$entities{$st->subject->uri_value} = 1 if ($st->subject->uri_value =~ m/^$urispace/);
-					}
-
-					$subjects{$st->subject->uri_value} = 1;
-					$properties{$st->predicate->uri_value} = 1;
-					$objects{$st->object->sse} = 1;
-				});
-
-	  return +{
-				  vocabularies  => \%vocab_counter,
-				  entities => scalar keys %entities,
-				  properties => scalar keys %properties,
-				  subjects => scalar keys %subjects,
-				  objects => scalar keys %objects,
-				 };
-  }
+	$self->inmodel->get_statements->each(sub {
+		my $st = shift;
+		next unless $st->rdf_compatible;
+		
+		# wrap in eval, as this can potentially throw an exception.
+		eval {
+			my ($vocab_uri) = $st->predicate->qname;
+			$vocab_counter{$vocab_uri}++;
+		};
+		
+		if ($self->has_urispace) {
+			# Compute entities
+			(my $urispace = $self->urispace) =~ s/\./\\./g;
+			$entities{$st->subject->uri_value} = 1 if ($st->subject->uri_value =~ m/^$urispace/);
+		}
+		
+		$subjects{$st->subject->uri_value} = 1;
+		$properties{$st->predicate->uri_value} = 1;
+		$objects{$st->object->sse} = 1;
+	});
+	
+	return +{
+				vocabularies  => \%vocab_counter,
+				entities => scalar keys %entities,
+				properties => scalar keys %properties,
+				subjects => scalar keys %subjects,
+				objects => scalar keys %objects,
+			  };
+}
 
 =head2 generate
 
