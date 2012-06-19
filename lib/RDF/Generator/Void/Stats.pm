@@ -3,7 +3,7 @@ package RDF::Generator::Void::Stats;
 use 5.006;
 use strict;
 use warnings;
-use Moose;
+use Any::Moose;
 
 has vocabularies => ( is => 'rw', isa => 'HashRef' );
 
