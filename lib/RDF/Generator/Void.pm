@@ -291,9 +291,9 @@ L<http://annocpan.org/dist/RDF-Generator-Void>
 
 L<http://cpanratings.perl.org/d/RDF-Generator-Void>
 
-=item * Search CPAN
+=item * MetaCPAN
 
-L<http://search.cpan.org/dist/RDF-Generator-Void/>
+L<https://metacpan.org/module/RDF::Generator::Void>
 
 =back
 
