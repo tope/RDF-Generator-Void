@@ -5,6 +5,12 @@ use URI;
 use RDF::Trine qw(literal);
 use RDF::Trine::Parser;
 
+# Will this fix the UTF8 failures?
+my $builder = Test::More->builder;
+binmode $builder->output, ":utf8";
+binmode $builder->failure_output, ":utf8";
+binmode $builder->todo_output, ":utf8";
+
 my $base_uri = 'http://localhost';
 
 my $testdata = $Bin . '/data/basic.ttl';
