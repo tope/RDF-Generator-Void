@@ -1,6 +1,7 @@
 Changes
 ignore.txt
 inc/Module/Install.pm
+inc/Module/Install/Any/Moose.pm
 inc/Module/Install/AuthorTests.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
@@ -13,6 +14,7 @@ inc/Module/Install/Repository.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/RDF/Generator/Void.pm
+lib/RDF/Generator/Void/Stats.pm
 Makefile.PL
 MANIFEST			This list of files
 MANIFEST.SKIP
