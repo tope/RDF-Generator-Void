@@ -4,8 +4,8 @@ use FindBin qw($Bin);
 use URI;
 use RDF::Trine qw(literal);
 use RDF::Trine::Parser;
+use utf8;
 
-# Will this fix the UTF8 failures?
 my $builder = Test::More->builder;
 binmode $builder->output, ":utf8";
 binmode $builder->failure_output, ":utf8";
