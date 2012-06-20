@@ -80,6 +80,8 @@ has inmodel => (
 					 required => 1,
 					);
 
+# This is setting up the dataset_uri method, and make it possible to
+# create a resource of it from strings or URI objects.
 class_type 'URI';
 
 subtype 'DatasetURI',
@@ -98,6 +100,7 @@ has dataset_uri => (
 						  coerce   => 1,
 						 );
 
+# This will create a URN with a UUID by default
 sub _build_dataset_uri {
 	my ($self) = @_;
 	return iri sprintf('urn:uuid:%s', Data::UUID->new->create_str);
@@ -119,6 +122,9 @@ values should be a string that represents the URI of a vocabulary.
 
 =cut
 
+# All the following attributes have that in common that they
+# automatically the method names also specified in handles, to
+# manipulate and query the data.
 has vocabulary => (
 						 is       => 'rw',
 						 traits   => ['Array'],
@@ -203,6 +209,8 @@ is set.
 
 =cut
 
+# There should only be a single uriSpace per Dataset (but there may be
+# more for subsets), thus this is a simple scalar attribute.
 has urispace => (
 					  is        => 'rw',
 					  isa       => 'Str',
@@ -219,6 +227,8 @@ clear the statistics and C<has_stats> will return true if exists.
 
 =cut
 
+# In practice, this method just calls the ::Stats class to do
+# everything.
 has stats => (
 				  is       => 'rw',
 				  isa      => 'RDF::Generator::Void::Stats',
