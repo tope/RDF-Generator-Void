@@ -9,6 +9,7 @@ use Data::UUID;
 use RDF::Trine qw[iri literal blank variable statement];
 use RDF::Generator::Void::Stats;
 # use less ();
+use utf8;
 
 # Define some namespace prefixes
 my $void = RDF::Trine::Namespace->new('http://rdfs.org/ns/void#');
@@ -22,7 +23,7 @@ RDF::Generator::Void - Generate VoID descriptions based on data in an RDF model
 
 =head1 VERSION
 
-Version 0.01_15
+Version 0.01_16
 
 Note that this is an early alpha release. It has pretty limited
 functionality, and there may very significant changes in this module
@@ -30,7 +31,7 @@ coming up really soon.
 
 =cut
 
-our $VERSION = '0.01_15';
+our $VERSION = '0.01_16';
 
 =head1 SYNOPSIS
 
