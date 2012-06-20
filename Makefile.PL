@@ -23,7 +23,7 @@ resources
   bugtracker    => "https://github.com/kjetilk/RDF-Generator-Void/issues";
 
 rdf_metadata;
-#write_doap_changes;
+write_doap_changes;
 
 sign;
 

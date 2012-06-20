@@ -1,5 +1,11 @@
-Revision history for RDF-Generator-Void
+RDF-Generator-Void
+==================
 
-0.01    Date/time
-        First version, released on an unsuspecting world.
+Created:      2012-06-15
+Bug tracker:  <https://github.com/kjetilk/RDF-Generator-Void/issues>
+Maintainer:   Toby Inkster
+Maintainer:   Kjetil Kjernsmo <mailto:kjetilk@cpan.org>
+
+0.02  2012-06-20  # Initial release.
+
 
