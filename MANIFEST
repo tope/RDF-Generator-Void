@@ -4,6 +4,7 @@ inc/Module/Install.pm
 inc/Module/Install/AuthorTests.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
+inc/Module/Install/DOAPChangeSets.pm
 inc/Module/Install/Fetch.pm
 inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
@@ -18,6 +19,7 @@ Makefile.PL
 MANIFEST			This list of files
 MANIFEST.SKIP
 META.yml
+meta/changes.ttl
 meta/people.ttl
 meta/project.ttl
 MYMETA.json
@@ -29,6 +31,7 @@ t/basic.t
 t/data/basic-expected.ttl
 t/data/basic.ttl
 xt/boilerplate.t
+xt/check-changes.t
 xt/manifest.t
 xt/pod-coverage.t
 xt/pod.t
