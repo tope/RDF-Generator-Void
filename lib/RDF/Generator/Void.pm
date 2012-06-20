@@ -379,6 +379,8 @@ Tope Omitola, C<< <tope.omitola at googlemail.com> >>
 
 =item * Conditional updates based on model ETags.
 
+=item * Save the description to files?
+
 =back
 
 
