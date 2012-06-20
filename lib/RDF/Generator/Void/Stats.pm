@@ -50,7 +50,7 @@ The number of distinct objects, as defined in the specification.
 
 =cut
 
-
+# The following attributes also act as read-write methods.
 has vocabularies => ( is => 'rw', isa => 'HashRef' );
 
 has entities => ( is => 'rw', isa => 'Int' );
@@ -61,30 +61,44 @@ has subjects => ( is => 'rw', isa => 'Int' );
 
 has objects => ( is => 'rw', isa => 'Int' );
 
+# This is a read-only method, meaning that the constructor has it as a
+# parameter, but then it can only be read from.
 has generator => (
 					 is       => 'ro',
 					 isa      => 'RDF::Generator::Void',
 					 required => 1,
 					);
 
+# The BUILD method is kinda the constructor. It is called when the
+# user calls the constructor. In here, the statistics is generated.
 sub BUILD {
 	my ($self) = @_;
-  
+
+	# Initialize local hashes to count stuff.
 	my (%vocab_counter, %entities, %properties, %subjects, %objects);
 
 	my $gen = $self->generator;
+	# Here, we take the data in the model we want to generate
+	# statistics for and we iterate over it. Doing it this way, we
+	# should be able to generate all statistics in a single pass of the
+	# data.
 	$gen->inmodel->get_statements->each(sub {
 		my $st = shift;
-		next unless $st->rdf_compatible;
+		next unless $st->rdf_compatible; # To allow for non-RDF data models (e.g. N3)
 		
 		# wrap in eval, as this can potentially throw an exception.
 		eval {
 			my ($vocab_uri) = $st->predicate->qname;
+			# The hash has a unique key, so now we count the number of qnames for each qname in the data
 			$vocab_counter{$vocab_uri}++;
 		};
 
 		if ($gen->has_urispace) {
-			# Compute entities
+			# Compute entities. We assume that all entities are subjects
+			# with a prefix matching the uriSpace. Again, we use the
+			# property that keys are unique, but we just set it to some
+			# true value since we don't need to count how frequently each
+			# entity is present.
 			(my $urispace = $gen->urispace) =~ s/\./\\./g;
 			$entities{$st->subject->uri_value} = 1 if ($st->subject->uri_value =~ m/^$urispace/);
 		}
@@ -93,7 +107,8 @@ sub BUILD {
 		$properties{$st->predicate->uri_value} = 1;
 		$objects{$st->object->sse} = 1;
 	});
-	
+
+	# Finally, we update the attributes above, they are returned as a side-effect
 	$self->vocabularies(\%vocab_counter);
 	$self->entities(scalar keys %entities);
 	$self->properties(scalar keys %properties);
