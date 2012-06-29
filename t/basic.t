@@ -2,7 +2,7 @@ use Test::More;
 use Test::RDF;
 use FindBin qw($Bin);
 use URI;
-use RDF::Trine qw(literal);
+use RDF::Trine qw(literal statement iri);
 use RDF::Trine::Parser;
 use utf8;
 
@@ -74,5 +74,22 @@ my $testfinal_model = $void_gen->generate;
 
 note(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($testfinal_model));
 isomorph_graphs($expected_void_model, $testfinal_model, 'Got the expected complete VoID description');
+
+
+my $more_model = RDF::Trine::Model->temporary_model;
+$more_model->add_statement(statement(iri('http://example.org/open-data-license'),
+												 iri('http://www.w3.org/2000/01/rdf-schema#label'),
+												 literal('Arbitrary description of license', 'en')));
+
+my $testmore_model = $void_gen->generate($more_model);
+
+are_subgraphs($expected_void_model, $testmore_model, 'Got the expected VoID description which is now a subset');
+has_literal('Arbitrary description of license', 'en', undef, $testmore_model, 'Has license literal');
+$expected_void_model->add_statement(statement(iri('http://example.org/open-data-license'),
+												 iri('http://www.w3.org/2000/01/rdf-schema#label'),
+												 literal('Arbitrary description of license', 'en')));
+
+isomorph_graphs($expected_void_model, $testmore_model, 'By adding arbitrary triple to expected, these two also becomes isomorph');
+
 
 done_testing;
