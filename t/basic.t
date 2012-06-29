@@ -30,7 +30,7 @@ $void_gen->urispace($base_uri);
 
 isa_ok($void_gen, 'RDF::Generator::Void');
 
-my $test_model = $void_gen->generate($void_model);
+my $test_model = $void_gen->generate;
 
 isa_ok($test_model, 'RDF::Trine::Model');
 
@@ -40,7 +40,7 @@ are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID descript
 
 $void_gen->add_endpoints($base_uri . '/sparql');
 
-$test_model = $void_gen->generate($void_model);
+$test_model = $void_gen->generate;
 
 are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with SPARQL');
 has_uri($base_uri . '/sparql', $test_model, 'Has endpoint URL');
@@ -48,7 +48,7 @@ has_uri($base_uri . '/sparql', $test_model, 'Has endpoint URL');
 
 
 $void_gen->add_titles(literal('This is a title', 'en'), literal('Blåbærsyltetøy', 'nb'));
-$test_model = $void_gen->generate($void_model);
+$test_model = $void_gen->generate;
 
 are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with title');
 has_literal('This is a title', 'en', undef, $test_model, 'Has title');
@@ -56,13 +56,13 @@ has_literal('Blåbærsyltetøy', 'nb', undef, $test_model, 'Has title with UTF8'
 
 $void_gen->add_licenses('http://example.org/open-data-license');
 
-$test_model = $void_gen->generate($void_model);
+$test_model = $void_gen->generate;
 
 are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with license');
 has_uri('http://example.org/open-data-license', $test_model, 'Has license URL');
 
 
-$test_model = $void_gen->generate($void_model);
+$test_model = $void_gen->generate;
 
 are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with urispace');
 has_literal($base_uri, undef, undef, $test_model, 'Has urispace');
@@ -70,7 +70,7 @@ has_literal($base_uri, undef, undef, $test_model, 'Has urispace');
 
 
 
-my $testfinal_model = $void_gen->generate($void_model);
+my $testfinal_model = $void_gen->generate;
 
 note(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($testfinal_model));
 isomorph_graphs($expected_void_model, $testfinal_model, 'Got the expected complete VoID description');
