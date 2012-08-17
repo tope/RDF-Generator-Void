@@ -93,7 +93,9 @@ sub BUILD {
 			$vocab_counter{$vocab_uri}++;
 		};
 
-		if ($gen->has_urispace) {
+		
+
+		if ($gen->has_urispace && $st->subject->is_resource) {
 			# Compute entities. We assume that all entities are subjects
 			# with a prefix matching the uriSpace. Again, we use the
 			# property that keys are unique, but we just set it to some
@@ -103,8 +105,8 @@ sub BUILD {
 			$entities{$st->subject->uri_value} = 1 if ($st->subject->uri_value =~ m/^$urispace/);
 		}
 		
-		$subjects{$st->subject->uri_value} = 1;
-		$properties{$st->predicate->uri_value} = 1;
+		$subjects{$st->subject->sse} = 1;
+		$properties{$st->predicate->sse} = 1;
 		$objects{$st->object->sse} = 1;
 	});
 
