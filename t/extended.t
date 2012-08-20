@@ -59,6 +59,11 @@ pattern_ok(statement(iri('http://example.org/'), $void->propertyPartition, varia
 			  statement(variable('propart'), $void->triples, literal(298, undef, $xsd->integer)),
   'dc:date properties OK');
 
+pattern_ok(statement(iri('http://example.org/'), $void->classPartition, variable('classpart')),
+			  statement(variable('classart'), $void->class, iri('http://purl.org/dc/terms/Event')),
+			  statement(variable('classart'), $void->triples, literal(112, undef, $xsd->integer)),
+  'dc:Event classes OK');
+
 
 
 $parser->parse_file_into_model( $base_uri, $expected, $expected_void_model );
