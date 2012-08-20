@@ -350,7 +350,6 @@ sub _generate_most_common_vocabs {
 
 Kjetil Kjernsmo C<< <kjetilk@cpan.org> >>
 Toby Inkster C<< <tobyink@cpan.org> >>
-Tope Omitola, C<< <tope.omitola at googlemail.com> >>
 
 =head1 TODO
 
@@ -425,7 +424,7 @@ L<https://metacpan.org/module/RDF::Generator::Void>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2012 Tope Omitola, Kjetil Kjernsmo, Toby Inkster.
+Copyright 2012 Kjetil Kjernsmo, Toby Inkster.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
