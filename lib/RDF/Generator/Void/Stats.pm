@@ -118,7 +118,7 @@ sub BUILD {
 	$self->properties(scalar keys %properties);
 	$self->subjects(scalar keys %subjects);
 	$self->objects(scalar keys %objects);
-	$self->propertyPartitions(%properties);
+	$self->propertyPartitions(\%properties);
 }
 
 =head1 FURTHER DOCUMENTATION

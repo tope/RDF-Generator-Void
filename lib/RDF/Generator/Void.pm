@@ -313,6 +313,7 @@ sub generate {
 													));
 	$self->_generate_most_common_vocabs($self->stats) if $self->has_stats;
   
+	$self->_generate_propertypartitions;
 	return $void_model;
 }
 
@@ -324,6 +325,25 @@ sub _generate_counts {
 																$predicate,
 																literal($count, undef, $xsd->integer),
 															  ));
+}
+
+sub _generate_propertypartitions {
+  my ($self) = @_;
+  return undef unless $self->has_stats;
+  my $properties = $self->stats->propertyPartitions;
+  while (my ($uri, $count) = each(%{$properties})) {
+    my $blank = blank();
+    $self->{void_model}->add_statement(statement(
+						 $self->dataset_uri,
+						 $void->propertyPartition,
+						 $blank));
+    $self->{void_model}->add_statement(statement($blank,
+						 $void->property,
+						 iri($uri)));
+    $self->{void_model}->add_statement(statement($blank,
+						 $void->triples,
+						 literal($count, undef, $xsd->integer)));
+  }
 }
 
 sub _generate_most_common_vocabs {
