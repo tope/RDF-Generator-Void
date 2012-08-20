@@ -355,8 +355,6 @@ Toby Inkster C<< <tobyink@cpan.org> >>
 
 =over
 
-=item * Allow arbitrary RDF to be added to the VoID.
-
 =item * Larger test dataset for more extensive tests.
 
 =item * URI regexps support.
@@ -378,8 +376,6 @@ Toby Inkster C<< <tobyink@cpan.org> >>
 =item * Linkset descriptions.
 
 =item * Set URI space on partitions.
-
-=item * Conditional updates based on model ETags.
 
 =item * Save the description to files?
 
