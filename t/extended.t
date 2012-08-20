@@ -2,7 +2,7 @@ use Test::More;
 use Test::RDF;
 use FindBin qw($Bin);
 use URI;
-use RDF::Trine qw(literal statement iri);
+use RDF::Trine qw(literal statement iri variable);
 use RDF::Trine::Parser;
 use utf8;
 
@@ -34,7 +34,32 @@ isa_ok($void_gen, 'RDF::Generator::Void');
 
 my $test_model = $void_gen->generate;
 
-isa_ok($test_model, 'RDF::Trine::Model');
+my $void = RDF::Trine::Namespace->new('http://rdfs.org/ns/void#');
+my $xsd = RDF::Trine::Namespace->new('http://www.w3.org/2001/XMLSchema#');
+
+pattern_target($test_model);
+
+pattern_ok(statement(iri('http://example.org/'), $void->triples,
+								 literal(4667, undef, $xsd->integer)), 'Triples OK');
+
+pattern_ok(statement(iri('http://example.org/'), $void->entities,
+								 literal(558, undef, $xsd->integer)), 'Entities OK');
+
+pattern_ok(
+			  statement(iri('http://example.org/'), $void->properties,
+								 literal(17, undef, $xsd->integer)),
+			  statement(iri('http://example.org/'), $void->distinctObjects,
+								 literal(3525, undef, $xsd->integer)),
+			  statement(iri('http://example.org/'), $void->distinctSubjects,
+								 literal(756, undef, $xsd->integer)),
+			  'Rest of basic counts OK');
+
+pattern_ok(statement(iri('http://example.org/'), $void->propertyPartition, variable('propart')),
+			  statement(variable('propart'), $void->property, iri('http://purl.org/dc/terms/date')),
+			  statement(variable('propart'), $void->triples, literal(298, undef, $xsd->integer)),
+  'dc:date properties OK');
+
+
 
 $parser->parse_file_into_model( $base_uri, $expected, $expected_void_model );
 
