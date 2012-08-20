@@ -13,10 +13,26 @@
 <http://example.org/> a void:Dataset ;
 	   void:triples 4667 ;
 	   void:entities 558 ;
-	   void:properties 15 ;
+	   void:properties 17 ;
 	   void:distinctSubjects 756 ;
 	   void:distinctObjects 3525 ;
-	   void:uriSpace "http://example.org/subjects/";
+
+    	   void:propertyPartition 
+	   [ 
+             void:property foaf:name;
+       	     void:triples 320;
+	   ],	  			     
+	   [ 
+             void:property foaf:name;
+       	     void:triples 208;
+	   ];	  		
+	   void:classPartition 
+	   [
+	     void:class foaf:Person;
+             void:triples 99;
+    	   ];
+ 
+    	   void:uriSpace "http://example.org/subjects/";
 	   void:vocabulary <http://purl.org/dc/terms/>, 
 	   		   <http://purl.org/vocab/relationship/>, 
 			   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>, 
