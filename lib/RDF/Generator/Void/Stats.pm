@@ -61,6 +61,8 @@ has subjects => ( is => 'rw', isa => 'Int' );
 
 has objects => ( is => 'rw', isa => 'Int' );
 
+has propertyPartitions => (is => 'rw', isa => 'HashRef' );
+
 # This is a read-only method, meaning that the constructor has it as a
 # parameter, but then it can only be read from.
 has generator => (
@@ -106,7 +108,7 @@ sub BUILD {
 		}
 		
 		$subjects{$st->subject->sse} = 1;
-		$properties{$st->predicate->sse} = 1;
+		$properties{$st->predicate->uri_value}++;
 		$objects{$st->object->sse} = 1;
 	});
 
@@ -116,7 +118,7 @@ sub BUILD {
 	$self->properties(scalar keys %properties);
 	$self->subjects(scalar keys %subjects);
 	$self->objects(scalar keys %objects);
-	
+	$self->propertyPartitions(%properties);
 }
 
 =head1 FURTHER DOCUMENTATION
