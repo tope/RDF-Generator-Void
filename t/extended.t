@@ -18,6 +18,8 @@ my $expected = $Bin . '/data/generated-expected.ttl';
 
 use_ok("RDF::Generator::Void");
 
+diag 'These tests take a fair amount of resources';
+
 my $expected_void_model = RDF::Trine::Model->temporary_model;
 my $data_model = RDF::Trine::Model->temporary_model;
 
