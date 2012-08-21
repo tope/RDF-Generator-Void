@@ -6,6 +6,7 @@ use RDF::Trine qw(literal statement iri variable);
 use RDF::Trine::Parser;
 use utf8;
 
+
 my $builder = Test::More->builder;
 binmode $builder->output, ":utf8";
 binmode $builder->failure_output, ":utf8";
@@ -70,9 +71,10 @@ pattern_ok(statement(iri('http://example.org/'), $void->classPartition, variable
 
 $parser->parse_file_into_model( $base_uri, $expected, $expected_void_model );
 
+
 SKIP: {
-	skip "Set SLOW_TESTS to run this really heavy test", 1 unless $ENV{SLOW_TESTS};
-	are_subgraphs($expected_void_model, $test_model, 'Got the expected VoID description with generated data');
+	skip "Old versions, RHEL, in particular, have performance bugs here", 1 unless $PERL_VERSION gt v5.9.0;
+	isomorph_graphs($expected_void_model, $test_model, 'Got the expected VoID description with generated data');
 }
 
 use RDF::Trine::Serializer;
