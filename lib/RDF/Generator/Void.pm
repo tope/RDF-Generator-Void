@@ -220,6 +220,17 @@ has urispace => (
 
 =head2 Running this stuff
 
+=head3 C<level>, C<has_level>
+
+Set the level of detail. 0 doesn't do any statistics or heuristics, 1
+has some statistics for the dataset as a whole. Setting no level will
+give everything.
+
+=cut
+
+has level => (is => 'rw', isa => 'Int', predicate => 'has_level');
+
+
 =head3 C<stats>, C<clear_stats>, C<has_stats>
 
 Method to compute a statistical summary for the data in the dataset,
@@ -267,20 +278,6 @@ sub generate {
 													 $void->Dataset,
 													));
 
-	if ($self->has_urispace) {
-		$void_model->add_statement(statement(
-														 $self->dataset_uri,
-														 $void->uriSpace,
-														 literal($self->urispace)
-														));
-		$self->_generate_counts($void->entities, $self->stats->entities);
-	}
-
-	$self->_generate_counts($void->distinctSubjects, $self->stats->subjects);
-	$self->_generate_counts($void->properties, $self->stats->properties);
-	$self->_generate_counts($void->distinctObjects, $self->stats->objects);
-
-
 	foreach my $endpoint ($self->all_endpoints) {
 		$void_model->add_statement(statement(
 														 $self->dataset_uri,
@@ -311,8 +308,29 @@ sub generate {
 													 $void->triples,
 													 literal($self->inmodel->size, undef, $xsd->integer),
 													));
+
+	if ($self->has_urispace) {
+		$void_model->add_statement(statement(
+														 $self->dataset_uri,
+														 $void->uriSpace,
+														 literal($self->urispace)
+														));
+		return $void_model if ($self->has_level && $self->level == 0);
+		$self->_generate_counts($void->entities, $self->stats->entities);
+	}
+
+	return $void_model if ($self->has_level && $self->level == 0);
+	$self->_generate_counts($void->distinctSubjects, $self->stats->subjects);
+	$self->_generate_counts($void->properties, $self->stats->properties);
+	$self->_generate_counts($void->distinctObjects, $self->stats->objects);
+
+
+
+
 	$self->_generate_most_common_vocabs($self->stats) if $self->has_stats;
   
+	return $void_model if ($self->has_level && $self->level <= 1);
+
 	$self->_generate_propertypartitions;
 	return $void_model;
 }
