@@ -46,6 +46,13 @@ The number of distinct subjects, as defined in the specification.
 
 The number of distinct objects, as defined in the specification.
 
+=head3 C<propertyPartitions>
+
+A hashref containing the number of triples for each property.
+
+=head3 C<classPartitions>
+
+A hashref containing the number of triples for each class.
 
 
 =cut
@@ -63,6 +70,8 @@ has objects => ( is => 'rw', isa => 'Int' );
 
 has propertyPartitions => (is => 'rw', isa => 'HashRef' );
 
+has classPartitions => (is => 'rw', isa => 'HashRef' );
+
 # This is a read-only method, meaning that the constructor has it as a
 # parameter, but then it can only be read from.
 has generator => (
@@ -77,7 +86,7 @@ sub BUILD {
 	my ($self) = @_;
 
 	# Initialize local hashes to count stuff.
-	my (%vocab_counter, %entities, %properties, %subjects, %objects);
+	my (%vocab_counter, %entities, %properties, %subjects, %objects, %classes);
 
 	my $gen = $self->generator;
 	# Here, we take the data in the model we want to generate
@@ -110,6 +119,14 @@ sub BUILD {
 		$subjects{$st->subject->sse} = 1;
 		$properties{$st->predicate->uri_value}++;
 		$objects{$st->object->sse} = 1;
+
+		unless ($gen->has_level && $gen->level <= 1) {
+			if (($st->predicate->uri_value eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
+				 && $st->object->is_resource) {
+				$classes{$st->object->uri_value}++
+			}
+		}
+
 	});
 
 	# Finally, we update the attributes above, they are returned as a side-effect
@@ -120,6 +137,7 @@ sub BUILD {
 	$self->objects(scalar keys %objects);
 	unless ($gen->has_level && $gen->level <= 1) {
 	  $self->propertyPartitions(\%properties);
+	  $self->classPartitions(\%classes);
 	}
 }
 

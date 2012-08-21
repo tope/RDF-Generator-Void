@@ -328,10 +328,11 @@ sub generate {
 
 
 	$self->_generate_most_common_vocabs($self->stats) if $self->has_stats;
-  
+
 	return $void_model if ($self->has_level && $self->level <= 1);
 
 	$self->_generate_propertypartitions;
+	$self->_generate_classpartitions;
 	return $void_model;
 }
 
@@ -357,6 +358,25 @@ sub _generate_propertypartitions {
 						 $blank));
     $self->{void_model}->add_statement(statement($blank,
 						 $void->property,
+						 iri($uri)));
+    $self->{void_model}->add_statement(statement($blank,
+						 $void->triples,
+						 literal($count, undef, $xsd->integer)));
+  }
+}
+
+sub _generate_classpartitions {
+  my ($self) = @_;
+  return undef unless $self->has_stats;
+  my $classes = $self->stats->classPartitions;
+  while (my ($uri, $count) = each(%{$classes})) {
+    my $blank = blank();
+    $self->{void_model}->add_statement(statement(
+						 $self->dataset_uri,
+						 $void->classPartition,
+						 $blank));
+    $self->{void_model}->add_statement(statement($blank,
+						 $void->class,
 						 iri($uri)));
     $self->{void_model}->add_statement(statement($blank,
 						 $void->triples,
