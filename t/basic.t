@@ -25,7 +25,7 @@ my $parser     = RDF::Trine::Parser->new( 'turtle' );
 $parser->parse_file_into_model( $base_uri, $testdata, $data_model );
 
 my $void_gen = RDF::Generator::Void->new(dataset_uri => $base_uri . '/dataset',
-													  inmodel => $data_model);
+													  inmodel => $data_model, level => 1);
 $void_gen->urispace($base_uri);
 
 isa_ok($void_gen, 'RDF::Generator::Void');

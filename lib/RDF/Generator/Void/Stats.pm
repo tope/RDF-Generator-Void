@@ -118,7 +118,9 @@ sub BUILD {
 	$self->properties(scalar keys %properties);
 	$self->subjects(scalar keys %subjects);
 	$self->objects(scalar keys %objects);
-	$self->propertyPartitions(\%properties);
+	unless ($gen->has_level && $gen->level <= 1) {
+	  $self->propertyPartitions(\%properties);
+	}
 }
 
 =head1 FURTHER DOCUMENTATION
