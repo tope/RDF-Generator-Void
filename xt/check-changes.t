@@ -3,13 +3,23 @@
 use 5.006;
 use strict;
 use warnings;
-use Test::More tests => 1;
+use Test::More;
+
+my $msg;
 
 unless ( $ENV{RELEASE_TESTING} ) {
-    plan( skip_all => "Author tests not required for installation" );
+	$msg = "Author tests not required for installation";
 }
 
 eval "use Test::RDF::DOAP::Version";
-plan skip_all => "Test::RDF::DOAP::Version required" if $@;
+if ($@) {
+	$msg = "Test::RDF::DOAP::Version required";
+}
+
+if ($msg) {
+	plan( skip_all => $msg );
+}
 
 doap_version_ok('RDF-Generator-Void', 'RDF::Generator::Void');
+
+done_testing;
