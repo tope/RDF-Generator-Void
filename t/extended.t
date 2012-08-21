@@ -71,14 +71,13 @@ pattern_ok(statement(iri('http://example.org/'), $void->classPartition, variable
 
 $parser->parse_file_into_model( $base_uri, $expected, $expected_void_model );
 
-
 SKIP: {
-	skip "Old versions, RHEL, in particular, have performance bugs here", 1 unless $PERL_VERSION gt v5.9.0;
-	isomorph_graphs($expected_void_model, $test_model, 'Got the expected VoID description with generated data');
+	skip "Old versions, RHEL, in particular, have performance bugs here", 1 unless $^V gt v5.9.0;
+	are_subgraphs($expected_void_model, $test_model, 'Got the expected VoID description with generated data');
 }
 
 use RDF::Trine::Serializer;
 my $ser = RDF::Trine::Serializer->new('turtle', namespaces => {dc => $dc, rdf => $rdf, rdfs => $rdfs, owl => $owl, foaf => $foaf, xsd => $xsd, rel => $rel, void => iri('http://rdfs.org/ns/void#')});
-note $ser->serialize_model_to_string($test_model);
+#note $ser->serialize_model_to_string($test_model);
 
 done_testing;
