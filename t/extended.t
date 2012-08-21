@@ -70,8 +70,10 @@ pattern_ok(statement(iri('http://example.org/'), $void->classPartition, variable
 
 $parser->parse_file_into_model( $base_uri, $expected, $expected_void_model );
 
-#isomorph_graphs($test_model, $expected_void_model, 'Got the expected VoID description with generated data');
-
+SKIP: {
+	skip "Set SLOW_TESTS to run this really heavy test", 1 unless $ENV{SLOW_TESTS};
+	are_subgraphs($test_model, $expected_void_model, 'Got the expected VoID description with generated data');
+}
 
 use RDF::Trine::Serializer;
 my $ser = RDF::Trine::Serializer->new('turtle', namespaces => {dc => $dc, rdf => $rdf, rdfs => $rdfs, owl => $owl, foaf => $foaf, xsd => $xsd, rel => $rel, void => iri('http://rdfs.org/ns/void#')});

@@ -87,13 +87,34 @@
 	   [ 
              void:property foaf:knows;
        	     void:triples 208;
-	   ];	  		
+	   ];
+		
 	   void:classPartition 
 	   [
 	     void:class foaf:Person;
              void:triples 99;
-    	   ];
- 
+    	   ],
+	   [
+	     void:class dc:Event ;
+	     void:triples 112 ;
+	   ],
+	   [
+	     void:class foaf:Agent ;
+      	     void:triples 113 ;
+	   ],
+	   [
+	     void:class dc:Text ;
+       	     void:triples 127 ;
+	   ],
+	   [
+	     void:class dc:Sound ;
+      	     void:triples 107 ;
+	   ],
+	   [
+ 	     void:class foaf:Organization ;
+       	     void:triples 129 ;
+	   ];
+
     	   void:uriSpace "http://example.org/subjects/";
 	   void:vocabulary <http://purl.org/dc/terms/>, 
 	   		   <http://purl.org/vocab/relationship/>, 
