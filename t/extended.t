@@ -72,7 +72,7 @@ pattern_ok(statement(iri('http://example.org/'), $void->classPartition, variable
 $parser->parse_file_into_model( $base_uri, $expected, $expected_void_model );
 
 SKIP: {
-	skip "Old versions, RHEL, in particular, have performance bugs here", 1 unless $^V gt v5.9.0;
+	skip "There are weird performance bugs here", 1 unless $ENV{SLOW_TESTS};
 	are_subgraphs($expected_void_model, $test_model, 'Got the expected VoID description with generated data');
 }
 
