@@ -30,6 +30,9 @@ t/00-load.t
 t/basic.t
 t/data/basic-expected.ttl
 t/data/basic.ttl
+t/data/generated-expected.ttl
+t/data/generated.ttl
+t/extended.t
 xt/boilerplate.t
 xt/check-changes.t
 xt/manifest.t
