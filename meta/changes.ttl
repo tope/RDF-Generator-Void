@@ -6,13 +6,22 @@
 @prefix dcs:  <http://ontologi.es/doap-changeset#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-my:project :release my:v_0_02, my:v_0_04, my:v_0_05_1 .
+my:project :release my:v_0_02, my:v_0_04, my:v_0_06 .
 
-my:v_0_05_1
+my:v_0_06
     a           :Version ;
-    dc:issued   "2012-08-21"^^xsd:date ;
+    dc:issued   "2012-08-22"^^xsd:date ;
     rdfs:label "More statistics."@en ;
-    :revision   "0.05_1"^^xsd:string .
+    :revision   "0.06"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Add class and property partitioning data."@en ; a dcs:Addition ] , 
+        [ rdfs:label "Large test dataset."@en ; a dcs:Addition ] , 
+        [ rdfs:label "More tests (for partitioning in particular)."@en ; a dcs:Addition ] , 
+        [ rdfs:label "Add detail level method."@en ; a dcs:Addition ] , 
+        [ rdfs:label "Some cosmetic fixes."@en ; a dcs:Change ] 
+    ] .
+ 
 
 my:v_0_04
     a           :Version ;

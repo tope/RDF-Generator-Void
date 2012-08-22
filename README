@@ -97,11 +97,7 @@ AUTHORS
     Kjetil Kjernsmo "<kjetilk@cpan.org>" Toby Inkster "<tobyink@cpan.org>"
 
 TODO
-    *   Larger test dataset for more extensive tests.
-
     *   URI regexps support.
-
-    *   Partitioning based on properties and classes.
 
     *   Technical features (esp. serializations).
 
@@ -119,7 +115,7 @@ TODO
 
     *   Set URI space on partitions.
 
-    *   Save the description to files?
+    *   Use CHI to cache?
 
 BUGS
     Please report any bugs you find to
