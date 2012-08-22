@@ -4,6 +4,7 @@ use FindBin qw($Bin);
 use URI;
 use RDF::Trine qw(literal statement iri variable);
 use RDF::Trine::Parser;
+use RDF::Trine::Namespace qw(rdf owl foaf rdfs rel dc);
 use utf8;
 
 

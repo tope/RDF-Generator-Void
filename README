@@ -3,7 +3,7 @@ NAME
     RDF model
 
 VERSION
-    Version 0.05_1
+    Version 0.06
 
     Note that this is a beta release. It has the core functionality in place
     to create a basic VoID description and what's there should be working
