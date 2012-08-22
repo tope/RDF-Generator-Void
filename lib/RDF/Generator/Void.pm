@@ -413,11 +413,7 @@ Toby Inkster C<< <tobyink@cpan.org> >>
 
 =over
 
-=item * Larger test dataset for more extensive tests.
-
 =item * URI regexps support.
-
-=item * Partitioning based on properties and classes.
 
 =item * Technical features (esp. serializations).
 
@@ -435,7 +431,7 @@ Toby Inkster C<< <tobyink@cpan.org> >>
 
 =item * Set URI space on partitions.
 
-=item * Save the description to files?
+=item * Use L<CHI> to cache?
 
 =back
 
