@@ -12,6 +12,11 @@ around _process_options => sub {
 	
 	$options->{is} = 'rw';
 	$options->{isa} = 'ArrayRef[Str]';
+
+	if ($attr_name =~ /^_(.+)/) {
+		$attr_name = $1;
+		$options->{init_arg} = $attr_name;
+	}
 	
 	# WTF isn't this like crazy to add traits to the class in a trait. Hmm, Nah, that's okay.
 	$options->{traits} //= [];
@@ -21,8 +26,8 @@ around _process_options => sub {
 	$options->{handles} = {
 								  sprintf("add_%s", $attr_name) => 'push',
 								  sprintf("all_%s", $attr_name) => 'uniq',
+								  sprintf("has_no_%s", $attr_name) => 'is_empty',
 								 };
-	warn "DaHUT " . Data::Dumper::Dumper($options->{handles});
 	$orig->(@_);
 };
 
