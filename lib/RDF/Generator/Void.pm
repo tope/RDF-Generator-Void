@@ -121,7 +121,7 @@ values should be a string that represents the URI of a vocabulary.
 # All the following attributes have that in common that they
 # automatically the method names also specified in handles, to
 # manipulate and query the data.
-has _vocabularies => ( traits => ['ResourceList'] );
+has _vocabularies => ( traits => ['ObjectList'] );
 
 =head3 C<all_endpoints>, C<add_endpoints>, C<has_no_endpoints>
 
@@ -132,7 +132,7 @@ URI of a SPARQL endpoint.
 =cut
 
 
-has _endpoints => ( traits => ['ResourceList'] );
+has _endpoints => ( traits => ['ObjectList'] );
 
 =head3 C<all_titles>, C<add_titles>, C<has_no_titles>
 
@@ -144,7 +144,7 @@ language. Typically, you would have a value per language.
 
 
 has _titles => ( 
-				  traits => ['ResourceList'],
+				  traits => ['ObjectList'],
 				  isa      => 'ArrayRef[RDF::Trine::Node::Literal]',
 				 );
 
@@ -157,7 +157,7 @@ license.
 
 =cut
 
-has _licenses => ( traits => ['ResourceList'] );
+has _licenses => ( traits => ['ObjectList'] );
 
 =head3 C<urispace>, C<has_urispace>
 

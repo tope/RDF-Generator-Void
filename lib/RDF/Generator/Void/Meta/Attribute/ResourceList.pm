@@ -1,4 +1,4 @@
-package RDF::Generator::Void::Meta::Attribute::ResourceList;
+package RDF::Generator::Void::Meta::Attribute::ObjectList;
 use Moose::Role;
 use Data::Dumper;
 
