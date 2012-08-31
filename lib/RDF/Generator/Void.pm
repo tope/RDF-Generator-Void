@@ -126,17 +126,7 @@ values should be a string that represents the URI of a vocabulary.
 # All the following attributes have that in common that they
 # automatically the method names also specified in handles, to
 # manipulate and query the data.
-has vocabulary => (
-						 is       => 'rw',
-						 traits   => ['Array'],
-						 isa      => 'ArrayRef[Str]',
-						 default  => sub { [] },
-						 handles  => {
-										  all_vocabularies    => 'uniq',
-										  add_vocabularies    => 'push',
-										  has_no_vocabularies => 'is_empty',
-										 },
-						);
+has vocabularies => ( traits   => ['ResourceList']	);
 
 =head3 C<endpoint>, C<all_endpoints>, C<add_endpoints>, C<has_no_endpoints>
 

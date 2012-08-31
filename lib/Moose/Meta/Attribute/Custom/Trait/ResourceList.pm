@@ -1,6 +1,6 @@
 package Moose::Meta::Attribute::Custom::Trait::ResourceList;
 use Moose::Role;
-sub register_implementation {'RDF::Generator::Void::KjetilTrait'};
+sub register_implementation {'RDF::Generator::Void::Meta::Attribute::ResourceList'};
 
 =head2 NAME
 
