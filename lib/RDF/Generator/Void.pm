@@ -433,6 +433,10 @@ Toby Inkster C<< <tobyink@cpan.org> >>
 
 =item * Use L<CHI> to cache?
 
+=item * Use schema introspection to generate property attributes with L<MooseX::Semantics>.
+
+
+
 =back
 
 
