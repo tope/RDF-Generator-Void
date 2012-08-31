@@ -11,7 +11,7 @@ around _process_options => sub {
 	my (undef, $attr_name, $options) = @_;
 	
 	$options->{is} = 'rw';
-	$options->{isa} = 'ArrayRef[Str]';
+	$options->{isa} ||= 'ArrayRef[Str]';
 
 	if ($attr_name =~ /^_(.+)/) {
 		$attr_name = $1;

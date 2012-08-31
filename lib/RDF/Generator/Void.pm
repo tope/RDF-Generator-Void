@@ -134,7 +134,7 @@ URI of a SPARQL endpoint.
 
 has _endpoints => ( traits => ['ResourceList'] );
 
-=head3 C<title>, C<all_titles>, C<add_titles>, C<has_no_titles>
+=head3 C<all_titles>, C<add_titles>, C<has_no_titles>
 
 Methods to manipulate the titles of the datasets. The values should be
 L<RDF::Trine::Node::Literal> objects, and should be set with
@@ -143,16 +143,9 @@ language. Typically, you would have a value per language.
 =cut
 
 
-has title => (
-				  is       => 'rw',
-				  traits   => ['Array'],
+has _titles => ( 
+				  traits => ['ResourceList'],
 				  isa      => 'ArrayRef[RDF::Trine::Node::Literal]',
-				  default  => sub { [] },
-				  handles  => {
-									all_titles    => 'uniq',
-									add_titles    => 'push',
-									has_no_titles => 'is_empty',
-								  },
 				 );
 
 
