@@ -23,16 +23,11 @@ RDF::Generator::Void - Generate VoID descriptions based on data in an RDF model
 
 =head1 VERSION
 
-Version 0.06
-
-Note that this is a beta release. It has the core functionality in
-place to create a basic VoID description and what's there should be
-working well. Nevertheless significant changes in this module may be
-coming up really soon.
+Version 0.07_1
 
 =cut
 
-our $VERSION = '0.06';
+our $VERSION = '0.07_1';
 
 =head1 SYNOPSIS
 
