@@ -116,7 +116,7 @@ values. Methods starting with C<add_> takes a list of values to add,
 and those starting with C<has_no_> return a boolean value, false if
 the array is empty.
 
-=head3 C<vocabulary>, C<all_vocabularies>, C<add_vocabularies>, C<has_no_vocabularies>
+=head3 C<all_vocabularies>, C<add_vocabularies>, C<has_no_vocabularies>
 
 Methods to manipulate a list of vocabularies used in the dataset. The
 values should be a string that represents the URI of a vocabulary.
@@ -126,9 +126,9 @@ values should be a string that represents the URI of a vocabulary.
 # All the following attributes have that in common that they
 # automatically the method names also specified in handles, to
 # manipulate and query the data.
-has _vocabularies => ( traits   => ['ResourceList']	);
+has _vocabularies => ( traits => ['ResourceList'] );
 
-=head3 C<endpoint>, C<all_endpoints>, C<add_endpoints>, C<has_no_endpoints>
+=head3 C<all_endpoints>, C<add_endpoints>, C<has_no_endpoints>
 
 Methods to manipulate a list of SPARQL endpoints that can be used to
 query the dataset. The values should be a string that represents the
@@ -137,17 +137,7 @@ URI of a SPARQL endpoint.
 =cut
 
 
-has endpoint => (
-					  is       => 'rw',
-					  traits   => ['Array'],
-					  isa      => 'ArrayRef[Str]',
-					  default  => sub { [] },
-					  handles  => {
-										all_endpoints    => 'uniq',
-										add_endpoints    => 'push',
-										has_no_endpoints => 'is_empty',
-									  },
-					 );
+has _endpoints => ( traits => ['ResourceList'] );
 
 =head3 C<title>, C<all_titles>, C<add_titles>, C<has_no_titles>
 
@@ -171,7 +161,7 @@ has title => (
 				 );
 
 
-=head3 C<license>, C<all_licenses>, C<add_licenses>, C<has_no_licenses>
+=head3 C<all_licenses>, C<add_licenses>, C<has_no_licenses>
 
 Methods to manipulate a list of licenses that regulates the use of the
 dataset. The values should be a string that represents the URI of a
@@ -179,17 +169,7 @@ license.
 
 =cut
 
-has license => (
-					 is       => 'rw',
-					 traits   => ['Array'],
-					 isa      => 'ArrayRef[Str]',
-					 default  => sub { [] },
-					 handles  => {
-									  all_licenses    => 'uniq',
-									  add_licenses    => 'push',
-									  has_no_licenses => 'is_empty',
-									 },
-					);
+has _licenses => ( traits => ['ResourceList'] );
 
 =head3 C<urispace>, C<has_urispace>
 
