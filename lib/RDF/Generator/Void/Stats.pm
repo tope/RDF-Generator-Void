@@ -60,13 +60,7 @@ A hashref containing the number of triples for each class.
 # The following attributes also act as read-write methods.
 has vocabularies => ( is => 'rw', isa => 'HashRef' );
 
-has entities => ( is => 'rw', isa => 'Int' );
-
-has properties => ( is => 'rw', isa => 'Int' );
-
-has subjects => ( is => 'rw', isa => 'Int' );
-
-has objects => ( is => 'rw', isa => 'Int' );
+has ['entities', 'properties', 'subjects', 'objects'] => ( is => 'rw', isa => 'Int' );
 
 has propertyPartitions => (is => 'rw', isa => 'HashRef' );
 
