@@ -111,7 +111,7 @@ sub BUILD {
 		}
 		
 		$subjects{$st->subject->sse} = 1;
-		$properties{$st->predicate->uri_value}++;
+		$properties{$st->predicate->uri_value}{'triples'}++;
 		$objects{$st->object->sse} = 1;
 
 		unless ($gen->has_level && $gen->level <= 1) {
@@ -120,6 +120,12 @@ sub BUILD {
 				$classes{$st->object->uri_value}++
 			}
 		}
+
+		if ($gen->has_level && $gen->level > 2) {
+			$properties{$st->predicate->uri_value}{'subjects'}{$st->subject->sse} = 1;
+			$properties{$st->predicate->uri_value}{'objects'}{$st->object->sse} = 1;
+		}
+
 
 	});
 

@@ -181,8 +181,9 @@ has urispace => (
 =head3 C<level>, C<has_level>
 
 Set the level of detail. 0 doesn't do any statistics or heuristics, 1
-has some statistics for the dataset as a whole. Setting no level will
-give everything.
+has some statistics for the dataset as a whole, 2 will give some
+partition statistics and 3 will give subject and object counts for
+property partitions. Setting no level will give everything.
 
 =cut
 
@@ -308,7 +309,7 @@ sub _generate_propertypartitions {
   my ($self) = @_;
   return undef unless $self->has_stats;
   my $properties = $self->stats->propertyPartitions;
-  while (my ($uri, $count) = each(%{$properties})) {
+  while (my ($uri, $counts) = each(%{$properties})) {
     my $blank = blank();
     $self->{void_model}->add_statement(statement(
 						 $self->dataset_uri,
@@ -319,7 +320,7 @@ sub _generate_propertypartitions {
 						 iri($uri)));
     $self->{void_model}->add_statement(statement($blank,
 						 $void->triples,
-						 literal($count, undef, $xsd->integer)));
+						 literal($counts->{'triples'}, undef, $xsd->integer)));
   }
 }
 
