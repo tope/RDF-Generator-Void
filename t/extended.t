@@ -61,6 +61,8 @@ pattern_ok(
 pattern_ok(statement(iri('http://example.org/'), $void->propertyPartition, variable('propart')),
 			  statement(variable('propart'), $void->property, iri('http://purl.org/dc/terms/date')),
 			  statement(variable('propart'), $void->triples, literal(298, undef, $xsd->integer)),
+			  statement(variable('propart'), $void->distinctObjects, literal(298, undef, $xsd->integer)),
+			  statement(variable('propart'), $void->distinctSubjects, literal(298, undef, $xsd->integer)),
   'dc:date properties OK');
 
 pattern_ok(statement(iri('http://example.org/'), $void->classPartition, variable('classpart')),
