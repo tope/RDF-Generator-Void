@@ -29,9 +29,8 @@ my $parser     = RDF::Trine::Parser->new( 'turtle' );
 
 $parser->parse_file_into_model( $base_uri, $testdata, $data_model );
 
-
 my $void_gen = RDF::Generator::Void->new(dataset_uri => 'http://example.org/',
-													  inmodel => $data_model);
+													  inmodel => $data_model, level => 3);
 $void_gen->urispace('http://example.org/subjects/');
 
 isa_ok($void_gen, 'RDF::Generator::Void');
@@ -61,9 +60,16 @@ pattern_ok(
 pattern_ok(statement(iri('http://example.org/'), $void->propertyPartition, variable('propart')),
 			  statement(variable('propart'), $void->property, iri('http://purl.org/dc/terms/date')),
 			  statement(variable('propart'), $void->triples, literal(298, undef, $xsd->integer)),
-			  statement(variable('propart'), $void->distinctObjects, literal(298, undef, $xsd->integer)),
+			  statement(variable('propart'), $void->distinctObjects, literal(293, undef, $xsd->integer)),
 			  statement(variable('propart'), $void->distinctSubjects, literal(298, undef, $xsd->integer)),
   'dc:date properties OK');
+
+pattern_ok(statement(iri('http://example.org/'), $void->propertyPartition, variable('propart')),
+			  statement(variable('propart'), $void->property, iri('http://purl.org/vocab/relationship/apprenticeTo')),
+			  statement(variable('propart'), $void->triples, literal(198, undef, $xsd->integer)),
+			  statement(variable('propart'), $void->distinctObjects, literal(188, undef, $xsd->integer)),
+			  statement(variable('propart'), $void->distinctSubjects, literal(168, undef, $xsd->integer)),
+ 'rel:apprenticeTo properties OK');
 
 pattern_ok(statement(iri('http://example.org/'), $void->classPartition, variable('classpart')),
 			  statement(variable('classart'), $void->class, iri('http://purl.org/dc/terms/Event')),

@@ -321,6 +321,18 @@ sub _generate_propertypartitions {
     $self->{void_model}->add_statement(statement($blank,
 						 $void->triples,
 						 literal($counts->{'triples'}, undef, $xsd->integer)));
+	 # OK, so sometimes, one has to balance elegance and performance...
+	 if ($counts->{'countsubjects'}) {
+		 $self->{void_model}->add_statement(statement($blank,
+						 $void->distinctSubjects,
+						 literal(scalar keys %{$counts->{'countsubjects'}}, undef, $xsd->integer)));
+		 $self->{void_model}->add_statement(statement($blank,
+						 $void->distinctObjects,
+						 literal(scalar keys %{$counts->{'countobjects'}}, undef, $xsd->integer)));
+	 }
+
+		 
+
   }
 }
 

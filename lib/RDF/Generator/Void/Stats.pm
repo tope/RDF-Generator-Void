@@ -122,12 +122,13 @@ sub BUILD {
 		}
 
 		if ($gen->has_level && $gen->level > 2) {
-			$properties{$st->predicate->uri_value}{'subjects'}{$st->subject->sse} = 1;
-			$properties{$st->predicate->uri_value}{'objects'}{$st->object->sse} = 1;
+			$properties{$st->predicate->uri_value}{'countsubjects'}{$st->subject->sse} = 1;
+			$properties{$st->predicate->uri_value}{'countobjects'}{$st->object->sse} = 1;
 		}
 
 
 	});
+
 
 	# Finally, we update the attributes above, they are returned as a side-effect
 	$self->vocabularies(\%vocab_counter);
