@@ -415,6 +415,13 @@ Toby Inkster C<< <tobyink@cpan.org> >>
 
 Please report any bugs you find to L<https://github.com/kjetilk/RDF-Generator-Void/issues>
 
+Note that any claim that this module will generate a void in
+spacetime, a wormhole, black hole, or funny philosophy is totally
+bogus and without any scientific merit whatsoever. The lead author has
+made elaborate precautions to avoid any such issues, and expects
+everyone to take his word for it. Oh, BTW, should it just happen
+anyway, it won't L<hurt much|http://news.sciencemag.org/sciencenow/2012/03/scienceshot-one-black-hole-wont-.html>.
+
 
 =head1 SUPPORT
 
