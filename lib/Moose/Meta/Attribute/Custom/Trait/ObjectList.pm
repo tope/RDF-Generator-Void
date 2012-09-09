@@ -4,7 +4,7 @@ sub register_implementation {'RDF::Generator::Void::Meta::Attribute::ObjectList'
 
 =head2 NAME
 
-Moose::Meta::Attribute::Custom::Trait::ObjectList - Trait for lists of resources
+Moose::Meta::Attribute::Custom::Trait::ObjectList - Trait for lists of RDF objects
 
 =head1 DESCRIPTION
 
