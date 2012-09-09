@@ -30,7 +30,7 @@ my $parser     = RDF::Trine::Parser->new( 'turtle' );
 $parser->parse_file_into_model( $base_uri, $testdata, $data_model );
 
 my $void_gen = RDF::Generator::Void->new(dataset_uri => 'http://example.org/',
-													  inmodel => $data_model, level => 3);
+													  inmodel => $data_model);
 $void_gen->urispace('http://example.org/subjects/');
 
 isa_ok($void_gen, 'RDF::Generator::Void');
