@@ -453,6 +453,7 @@ L<https://metacpan.org/module/RDF::Generator::Void>
 
 =head1 ACKNOWLEDGEMENTS
 
+Many thanks to Konstantin Baierer for help with L<RDF::Generator::Void::Meta::Attribute::ObjectList>.
 
 =head1 LICENSE AND COPYRIGHT
 

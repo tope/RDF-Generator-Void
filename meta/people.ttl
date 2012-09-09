@@ -15,3 +15,7 @@
 <http://tobyinkster.co.uk/#i>	a               foaf:Person ;
 				foaf:homepage   <http://tobyinkster.co.uk/> ;
 				foaf:name       "Toby Inkster" .
+
+<http://purl.org/NET/cpan-uri/person/kba> a foaf:Person ;
+	foaf:mbox <mailto:kba@cpan.org> ;
+	foaf:name "Konstantin Baierer" .
