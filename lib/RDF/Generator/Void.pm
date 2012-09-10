@@ -274,7 +274,7 @@ sub generate {
 														 $void->uriSpace,
 														 literal($self->urispace)
 														));
-		return $void_model if ($self->has_level && $self->level == 0);
+		return $void_model if ($self->has_level && ($self->level == 0));
 		$self->_generate_counts($void->entities, $self->stats->entities);
 	}
 

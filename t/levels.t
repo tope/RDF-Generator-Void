@@ -48,7 +48,7 @@ note "No level set";
 note "Level set to 0";
 {
 	my $void_gen = RDF::Generator::Void->new(dataset_uri => $base_uri . '/dataset',
-														  inmodel => $data_model, level => 1);
+														  inmodel => $data_model, level => 0);
 	$void_gen->urispace($base_uri);
 	isa_ok($void_gen, 'RDF::Generator::Void');
 	my $test_model = $void_gen->generate;
