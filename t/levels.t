@@ -30,11 +30,13 @@ note "No level set";
 	my $test_model = $void_gen->generate;
 	isa_ok($test_model, 'RDF::Trine::Model');
 
+	note(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($test_model));
+
 	has_predicate('http://rdfs.org/ns/void#triples', $test_model, 'Has got the triples predicate');
 	has_predicate('http://rdfs.org/ns/void#entities', $test_model, 'Has got the entities predicate');
 	has_predicate('http://rdfs.org/ns/void#classPartition', $test_model, 'Has got the classPartition predicate');
 	pattern_target($test_model);
-	pattern_ok(statement(iri($base_uri . '/'), $void->propertyPartition, variable('propart')),
+	pattern_ok(statement(iri($base_uri . '/datasetfix one test bug'), $void->propertyPartition, variable('propart')),
 			  statement(variable('propart'), $void->property, iri('http://www.w3.org/2000/01/rdf-schema#label')),
 			  statement(variable('propart'), $void->triples, literal(2, undef, $xsd->integer)),
 			  statement(variable('propart'), $void->distinctObjects, literal(2, undef, $xsd->integer)),
