@@ -84,9 +84,9 @@ note "Level set to 1";
 	pattern_target($test_model);
 	pattern_fail(statement(iri($base_uri . '/dataset'), $void->propertyPartition, variable('propart')),
 			  statement(variable('propart'), $void->property, iri('http://www.w3.org/2000/01/rdf-schema#label')),
-			  statement(variable('propart'), $void->triples, literal(2, undef, $xsd->integer)),
-			  statement(variable('propart'), $void->distinctObjects, literal(2, undef, $xsd->integer)),
-			  statement(variable('propart'), $void->distinctSubjects, literal(2, undef, $xsd->integer)),
+			  statement(variable('propart'), $void->triples, variable('whatever1')),
+			  statement(variable('propart'), $void->distinctObjects, variable('whatever2')),
+			  statement(variable('propart'), $void->distinctSubjects, variable('whatever3')),
   'rdfs:label propertyPartitions not present');
 
 }
@@ -112,8 +112,8 @@ note "Level set to 2";
   'rdfs:label propertyPartitions OK');
 	pattern_fail(statement(iri($base_uri . '/dataset'), $void->propertyPartition, variable('propart')),
 			  statement(variable('propart'), $void->property, iri('http://www.w3.org/2000/01/rdf-schema#label')),
-			  statement(variable('propart'), $void->distinctObjects, literal(2, undef, $xsd->integer)),
-			  statement(variable('propart'), $void->distinctSubjects, literal(2, undef, $xsd->integer)),
+			  statement(variable('propart'), $void->distinctObjects, variable('whatever1')),
+			  statement(variable('propart'), $void->distinctSubjects, variable('whatever2')),
   'rdfs:label propertyPartitions without distinct* not present');
 
 }
