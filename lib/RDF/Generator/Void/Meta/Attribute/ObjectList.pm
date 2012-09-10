@@ -1,6 +1,7 @@
 package RDF::Generator::Void::Meta::Attribute::ObjectList;
+
 use Moose::Role;
-use Data::Dumper;
+#use Data::Dumper;
 
 with (
     'Moose::Meta::Attribute::Native::Trait::Array',
