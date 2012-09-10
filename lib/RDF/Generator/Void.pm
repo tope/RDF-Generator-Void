@@ -283,9 +283,6 @@ sub generate {
 	$self->_generate_counts($void->properties, $self->stats->properties);
 	$self->_generate_counts($void->distinctObjects, $self->stats->objects);
 
-
-
-
 	$self->_generate_most_common_vocabs($self->stats) if $self->has_stats;
 
 	return $void_model if ($self->has_level && $self->level <= 1);
