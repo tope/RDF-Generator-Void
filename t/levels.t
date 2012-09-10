@@ -36,7 +36,7 @@ note "No level set";
 	has_predicate('http://rdfs.org/ns/void#entities', $test_model, 'Has got the entities predicate');
 	has_predicate('http://rdfs.org/ns/void#classPartition', $test_model, 'Has got the classPartition predicate');
 	pattern_target($test_model);
-	pattern_ok(statement(iri($base_uri . '/datasetfix one test bug'), $void->propertyPartition, variable('propart')),
+	pattern_ok(statement(iri($base_uri . '/dataset'), $void->propertyPartition, variable('propart')),
 			  statement(variable('propart'), $void->property, iri('http://www.w3.org/2000/01/rdf-schema#label')),
 			  statement(variable('propart'), $void->triples, literal(2, undef, $xsd->integer)),
 			  statement(variable('propart'), $void->distinctObjects, literal(2, undef, $xsd->integer)),
@@ -44,6 +44,92 @@ note "No level set";
   'rdfs:label propertyPartitions OK');
 
 }
+
+note "Level set to 0";
+{
+	my $void_gen = RDF::Generator::Void->new(dataset_uri => $base_uri . '/dataset',
+														  inmodel => $data_model, level => 1);
+	$void_gen->urispace($base_uri);
+	isa_ok($void_gen, 'RDF::Generator::Void');
+	my $test_model = $void_gen->generate;
+	isa_ok($test_model, 'RDF::Trine::Model');
+
+	note(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($test_model));
+
+	has_predicate('http://rdfs.org/ns/void#triples', $test_model, 'Has got the triples predicate');
+	hasnt_uri('http://rdfs.org/ns/void#entities', $test_model, 'Hasnt got the entities predicate');
+	hasnt_uri('http://rdfs.org/ns/void#classPartition', $test_model, 'Hasnt got the classPartition predicate');
+	hasnt_uri('http://rdfs.org/ns/void#propertyPartition', $test_model, 'Hasnt got the propertyPartition predicate');
+	hasnt_uri('http://rdfs.org/ns/void#distinctObjects', $test_model, 'Hasnt got the distinctObjects predicate');
+
+}
+
+
+note "Level set to 1";
+{
+	my $void_gen = RDF::Generator::Void->new(dataset_uri => $base_uri . '/dataset',
+														  inmodel => $data_model, level => 1);
+	$void_gen->urispace($base_uri);
+	isa_ok($void_gen, 'RDF::Generator::Void');
+	my $test_model = $void_gen->generate;
+	isa_ok($test_model, 'RDF::Trine::Model');
+
+	note(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($test_model));
+
+	has_predicate('http://rdfs.org/ns/void#triples', $test_model, 'Has got the triples predicate');
+	has_predicate('http://rdfs.org/ns/void#entities', $test_model, 'Has got the entities predicate');
+	hasnt_uri('http://rdfs.org/ns/void#classPartition', $test_model, 'Hasnt got the classPartition predicate');
+	hasnt_uri('http://rdfs.org/ns/void#propertyPartition', $test_model, 'Hasnt got the propertyPartition predicate');
+	has_predicate('http://rdfs.org/ns/void#distinctObjects', $test_model, 'Has got the distinctObjects predicate');
+
+}
+
+note "Level set to 2";
+{
+	my $void_gen = RDF::Generator::Void->new(dataset_uri => $base_uri . '/dataset',
+														  inmodel => $data_model, level => 2);
+	$void_gen->urispace($base_uri);
+	isa_ok($void_gen, 'RDF::Generator::Void');
+	my $test_model = $void_gen->generate;
+	isa_ok($test_model, 'RDF::Trine::Model');
+
+	note(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($test_model));
+
+	has_predicate('http://rdfs.org/ns/void#triples', $test_model, 'Has got the triples predicate');
+	has_predicate('http://rdfs.org/ns/void#entities', $test_model, 'Has got the entities predicate');
+	has_predicate('http://rdfs.org/ns/void#classPartition', $test_model, 'Has got the classPartition predicate');
+	pattern_target($test_model);
+	pattern_ok(statement(iri($base_uri . '/dataset'), $void->propertyPartition, variable('propart')),
+			  statement(variable('propart'), $void->property, iri('http://www.w3.org/2000/01/rdf-schema#label')),
+			  statement(variable('propart'), $void->triples, literal(2, undef, $xsd->integer)),
+  'rdfs:label propertyPartitions OK');
+
+}
+
+note "Level set to 3";
+{
+	my $void_gen = RDF::Generator::Void->new(dataset_uri => $base_uri . '/dataset',
+														  inmodel => $data_model, level => 3);
+	$void_gen->urispace($base_uri);
+	isa_ok($void_gen, 'RDF::Generator::Void');
+	my $test_model = $void_gen->generate;
+	isa_ok($test_model, 'RDF::Trine::Model');
+
+	note(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($test_model));
+
+	has_predicate('http://rdfs.org/ns/void#triples', $test_model, 'Has got the triples predicate');
+	has_predicate('http://rdfs.org/ns/void#entities', $test_model, 'Has got the entities predicate');
+	has_predicate('http://rdfs.org/ns/void#classPartition', $test_model, 'Has got the classPartition predicate');
+	pattern_target($test_model);
+	pattern_ok(statement(iri($base_uri . '/dataset'), $void->propertyPartition, variable('propart')),
+			  statement(variable('propart'), $void->property, iri('http://www.w3.org/2000/01/rdf-schema#label')),
+			  statement(variable('propart'), $void->triples, literal(2, undef, $xsd->integer)),
+			  statement(variable('propart'), $void->distinctObjects, literal(2, undef, $xsd->integer)),
+			  statement(variable('propart'), $void->distinctSubjects, literal(2, undef, $xsd->integer)),
+  'rdfs:label propertyPartitions OK');
+
+}
+
 
 
 done_testing;
