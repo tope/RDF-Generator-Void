@@ -72,7 +72,7 @@ has_literal($base_uri, undef, undef, $test_model, 'Has urispace');
 
 my $testfinal_model = $void_gen->generate;
 
-note(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($testfinal_model));
+#note(RDF::Trine::Serializer::Turtle->new->serialize_model_to_string($testfinal_model));
 isomorph_graphs($expected_void_model, $testfinal_model, 'Got the expected complete VoID description');
 
 
