@@ -1,5 +1,5 @@
 use Test::More;
-use Test::RDF;
+use Test::RDF 1.10;
 use FindBin qw($Bin);
 use URI;
 use RDF::Trine qw(literal statement iri variable);
@@ -81,6 +81,13 @@ note "Level set to 1";
 	hasnt_uri('http://rdfs.org/ns/void#classPartition', $test_model, 'Hasnt got the classPartition predicate');
 	hasnt_uri('http://rdfs.org/ns/void#propertyPartition', $test_model, 'Hasnt got the propertyPartition predicate');
 	has_predicate('http://rdfs.org/ns/void#distinctObjects', $test_model, 'Has got the distinctObjects predicate');
+	pattern_target($test_model);
+	pattern_fail(statement(iri($base_uri . '/dataset'), $void->propertyPartition, variable('propart')),
+			  statement(variable('propart'), $void->property, iri('http://www.w3.org/2000/01/rdf-schema#label')),
+			  statement(variable('propart'), $void->triples, literal(2, undef, $xsd->integer)),
+			  statement(variable('propart'), $void->distinctObjects, literal(2, undef, $xsd->integer)),
+			  statement(variable('propart'), $void->distinctSubjects, literal(2, undef, $xsd->integer)),
+  'rdfs:label propertyPartitions not present');
 
 }
 
@@ -103,6 +110,11 @@ note "Level set to 2";
 			  statement(variable('propart'), $void->property, iri('http://www.w3.org/2000/01/rdf-schema#label')),
 			  statement(variable('propart'), $void->triples, literal(2, undef, $xsd->integer)),
   'rdfs:label propertyPartitions OK');
+	pattern_fail(statement(iri($base_uri . '/dataset'), $void->propertyPartition, variable('propart')),
+			  statement(variable('propart'), $void->property, iri('http://www.w3.org/2000/01/rdf-schema#label')),
+			  statement(variable('propart'), $void->distinctObjects, literal(2, undef, $xsd->integer)),
+			  statement(variable('propart'), $void->distinctSubjects, literal(2, undef, $xsd->integer)),
+  'rdfs:label propertyPartitions without distinct* not present');
 
 }
 
