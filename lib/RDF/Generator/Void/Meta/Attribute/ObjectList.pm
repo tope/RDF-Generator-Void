@@ -1,7 +1,40 @@
 package RDF::Generator::Void::Meta::Attribute::ObjectList;
 
 use Moose::Role;
-#use Data::Dumper;
+
+
+=head1 NAME
+
+RDF::Generator::Void::Meta::Attribute::ObjectList - Trait for list of RDF objects
+
+=head1 SYNOPSIS
+
+ has _endpoints => ( traits => ['ObjectList'] );
+ has _titles => (
+				  traits => ['ObjectList'],
+				  isa      => 'ArrayRef[RDF::Trine::Node::Literal]',
+				 );
+ has resources => ( traits => ['ObjectList'] );
+
+=head2 DESCRIPTION
+
+This module gives you a trait to manage a list of RDF resources
+typically used in an object position in an RDF triple. When declaring
+attributes, you may use C<traits => ['ObjectList']> alone in which
+case it'll give you a arrayref of strings and the methods to push to
+the array, list all strings in the array, and to check if it is
+empty. These are created by prefixing C<add_>, C<all_> and C<has_no_>
+to your attribute name, respectively.
+
+If you have an underscore in the beginning, the attribute will not
+itself be a method, but you can still use the non-prefixed attribute
+name as argument to the constructor, and you will have the same methods as above.
+
+You may also give a C<isa> argument to the attribute. In that case,
+you may set the arrayref to contain something other than strings, like
+in the example above.
+
+=cut
 
 with (
     'Moose::Meta::Attribute::Native::Trait::Array',
@@ -33,5 +66,19 @@ around _process_options => sub {
 };
 
 
+
+=head1 FURTHER DOCUMENTATION
+
+Please see L<RDF::Generator::Void> for further documentation.
+
+=head1 AUTHORS AND COPYRIGHT
+
+This module was prototyped by Konstantin Baierer and is mostly his work.
+
+Please see L<RDF::Generator::Void> for more information about authors
+and copyright for this module.
+
+
+=cut
 
 1;
