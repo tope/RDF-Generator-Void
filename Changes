@@ -5,6 +5,18 @@ Created:      2012-06-15
 Bug tracker:  <https://github.com/kjetilk/RDF-Generator-Void/issues>
 Maintainer:   Kjetil Kjernsmo <mailto:kjetilk@cpan.org>
 
+0.10  2012-09-11  # Big refactoring.
+
+ - (Addition) Add funny disclaimer.
+ - (Addition) Add more tests, especially for different levels.
+ - (Addition) Add object and subject counts on property partitions
+ - (Bugfix) Make sure it works on old Perls
+   ++"Toby Inkster"
+ - Make most attributes private.
+ - RDF-based packaging.
+ - Use a trait to fix awful verbosity in attribute names.
+   ++"Konstantin Baierer"
+
 0.06  2012-08-22  # More statistics.
 
  - (Addition) Add class and property partitioning data.
