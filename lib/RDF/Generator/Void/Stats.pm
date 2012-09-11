@@ -114,12 +114,12 @@ sub BUILD {
 		$properties{$st->predicate->uri_value}{'triples'}++;
 		$objects{$st->object->sse} = 1;
 
-		unless ($gen->has_level && $gen->level <= 1) {
+#		if ((!$gen->has_level) || ($gen->has_level && $gen->level >= 1)) {
 			if (($st->predicate->uri_value eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
 				 && $st->object->is_resource) {
 				$classes{$st->object->uri_value}++
 			}
-		}
+#		}
 
 		if ((!$gen->has_level) || ($gen->has_level && $gen->level > 2)) {
 			$properties{$st->predicate->uri_value}{'countsubjects'}{$st->subject->sse} = 1;
@@ -127,6 +127,7 @@ sub BUILD {
 		}
 
 	});
+		warn Data::Dumper::Dumper(\%classes);
 
 	# Finally, we update the attributes above, they are returned as a side-effect
 	$self->vocabularies(\%vocab_counter);
@@ -134,9 +135,9 @@ sub BUILD {
 	$self->properties(scalar keys %properties);
 	$self->subjects(scalar keys %subjects);
 	$self->objects(scalar keys %objects);
-	unless ($gen->has_level && $gen->level <= 1) {
-	  $self->propertyPartitions(\%properties);
-	  $self->classPartitions(\%classes);
+	if ((!$gen->has_level) || ($gen->has_level && $gen->level >= 1)) {
+		$self->propertyPartitions(\%properties);
+		$self->classPartitions(\%classes);
 	}
 }
 
