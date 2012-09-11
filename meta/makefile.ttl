@@ -7,7 +7,7 @@
 <project>
     :all_from <project#main> ;
     :readme_from <project#main> ;
-    :test_requires "" ;
-    :requires "Scalar::Util", "Test::More", "Test::Builder::Module", "RDF::Trine 0.134" .
+    :test_requires "Test::More 0.88", "Test::RDF 1.10", "FindBin" ;
+    :requires "RDF::Trine", "URI", "Data::UUID", "Moose", "aliased" .
 
-<project#main> <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileName> "lib/Test/RDF.pm" .
+<project#main> <http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileName> "lib/RDF/Generator/Void.pm" .
