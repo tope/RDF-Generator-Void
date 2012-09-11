@@ -53,7 +53,7 @@ For a description of VoID, see L<http://www.w3.org/TR/void/>.
 
 =head1 METHODS
 
-=head2 new(inmodel => $mymodel, dataset_uri => URI->new($dataset_uri));
+=head2 new(inmodel => $mymodel, dataset_uri => URI->new($dataset_uri), level => 1);
 
 The constructor. It can be called with two parameters, namely,
 C<inmodel> which is a model we want to describe and C<dataset_uri>,
