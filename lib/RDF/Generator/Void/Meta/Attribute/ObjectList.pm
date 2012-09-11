@@ -1,6 +1,7 @@
 package RDF::Generator::Void::Meta::Attribute::ObjectList;
+
 use Moose::Role;
-use Data::Dumper;
+#use Data::Dumper;
 
 with (
     'Moose::Meta::Attribute::Native::Trait::Array',
@@ -10,8 +11,8 @@ around _process_options => sub {
 	my $orig = shift;
 	my (undef, $attr_name, $options) = @_;
 	
-	$options->{is} = 'rw';
-	$options->{isa} ||= 'ArrayRef[Str]';
+	$options->{is}  = 'rw';
+	$options->{isa} = 'ArrayRef[Str]' unless exists $options->{isa};
 
 	if ($attr_name =~ /^_(.+)/) {
 		$attr_name = $1;
@@ -19,7 +20,7 @@ around _process_options => sub {
 	}
 	
 	# WTF isn't this like crazy to add traits to the class in a trait. Hmm, Nah, that's okay.
-	$options->{traits} //= [];
+	$options->{traits} = [] unless exists $options->{traits};
 	push @{ $options->{traits} }, 'Moose::Meta::Attribute::Native::Trait::Array';
 	
 	$options->{default} = sub {[]};

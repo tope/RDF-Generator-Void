@@ -14,6 +14,7 @@ requires 'RDF::Trine';
 requires 'URI';
 requires 'Data::UUID';
 requires 'Moose';
+requires 'aliased';
 
 author_tests('xt');
 
