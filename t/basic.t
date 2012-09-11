@@ -90,6 +90,7 @@ $expected_void_model->add_statement(statement(iri('http://example.org/open-data-
 												 literal('Arbitrary description of license', 'en')));
 
 hasnt_uri('http://rdfs.org/ns/void#propertyPartition', $testmore_model, 'Hasnt got the propertyPartitions predicate');
+hasnt_uri('http://rdfs.org/ns/void#classPartition', $testmore_model, 'Hasnt got the classPartitions predicate');
 
 isomorph_graphs($expected_void_model, $testmore_model, 'By adding arbitrary triple to expected, these two also becomes isomorph');
 
