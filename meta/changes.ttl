@@ -6,8 +6,26 @@
 @prefix dcs:  <http://ontologi.es/doap-changeset#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-my:project :release my:v_0_02, my:v_0_04, my:v_0_06 .
+my:project :release my:v_0_02, my:v_0_04, my:v_0_06, my:v_0_10 .
 
+my:v_0_10
+    a           :Version ;
+    dc:issued   "2012-09-11"^^xsd:date ;
+    rdfs:label "Big refactoring."@en ;
+    :revision   "0.10"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Make sure it works on old Perls"@en ; a dcs:Bugfix ; 
+	  dcs:blame <http://tobyinkster.co.uk/#i> ] , 
+        [ rdfs:label "Use a trait to fix awful verbosity in attribute names."@en ; a dcs:Change ;
+	  dcs:thanks <http://purl.org/NET/cpan-uri/person/kba> ] , 
+        [ rdfs:label "Add object and subject counts on property partitions"@en ; a dcs:Addition ] , 
+        [ rdfs:label "Add more tests, especially for different levels."@en ; a dcs:Addition ] , 
+        [ rdfs:label "RDF-based packaging."@en ; a dcs:Change ] , 
+        [ rdfs:label "Make most attributes private."@en ; a dcs:Change ] , 
+        [ rdfs:label "Add funny disclaimer."@en ; a dcs:Addition ] 
+    ] .
+ 
 my:v_0_06
     a           :Version ;
     dc:issued   "2012-08-22"^^xsd:date ;
