@@ -14,6 +14,7 @@ inc/Module/Install/Repository.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/RDF/Generator/Void.pm
+lib/RDF/Generator/Void/Meta/Attribute/ObjectList.pm
 lib/RDF/Generator/Void/Stats.pm
 Makefile.PL
 MANIFEST			This list of files
@@ -33,6 +34,7 @@ t/data/basic.ttl
 t/data/generated-expected.ttl
 t/data/generated.ttl
 t/extended.t
+t/levels.t
 xt/boilerplate.t
 xt/check-changes.t
 xt/manifest.t

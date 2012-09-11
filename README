@@ -3,12 +3,7 @@ NAME
     RDF model
 
 VERSION
-    Version 0.06
-
-    Note that this is a beta release. It has the core functionality in place
-    to create a basic VoID description and what's there should be working
-    well. Nevertheless significant changes in this module may be coming up
-    really soon.
+    Version 0.07_1
 
 SYNOPSIS
       use RDF::Generator::Void;
@@ -29,7 +24,7 @@ DESCRIPTION
     For a description of VoID, see <http://www.w3.org/TR/void/>.
 
 METHODS
-  new(inmodel => $mymodel, dataset_uri => URI->new($dataset_uri));
+  new(inmodel => $mymodel, dataset_uri => URI->new($dataset_uri), level => 1);
     The constructor. It can be called with two parameters, namely, "inmodel"
     which is a model we want to describe and "dataset_uri", which is the URI
     we want to use for the description. Users should make sure it is
@@ -51,21 +46,21 @@ METHODS
     those starting with "has_no_" return a boolean value, false if the array
     is empty.
 
-   "vocabulary", "all_vocabularies", "add_vocabularies", "has_no_vocabularies"
+   "all_vocabularies", "add_vocabularies", "has_no_vocabularies"
     Methods to manipulate a list of vocabularies used in the dataset. The
     values should be a string that represents the URI of a vocabulary.
 
-   "endpoint", "all_endpoints", "add_endpoints", "has_no_endpoints"
+   "all_endpoints", "add_endpoints", "has_no_endpoints"
     Methods to manipulate a list of SPARQL endpoints that can be used to
     query the dataset. The values should be a string that represents the URI
     of a SPARQL endpoint.
 
-   "title", "all_titles", "add_titles", "has_no_titles"
+   "all_titles", "add_titles", "has_no_titles"
     Methods to manipulate the titles of the datasets. The values should be
     RDF::Trine::Node::Literal objects, and should be set with language.
     Typically, you would have a value per language.
 
-   "license", "all_licenses", "add_licenses", "has_no_licenses"
+   "all_licenses", "add_licenses", "has_no_licenses"
     Methods to manipulate a list of licenses that regulates the use of the
     dataset. The values should be a string that represents the URI of a
     license.
@@ -79,8 +74,9 @@ METHODS
   Running this stuff
    "level", "has_level"
     Set the level of detail. 0 doesn't do any statistics or heuristics, 1
-    has some statistics for the dataset as a whole. Setting no level will
-    give everything.
+    has some statistics for the dataset as a whole, 2 will give some
+    partition statistics and 3 will give subject and object counts for
+    property partitions. Setting no level will give everything.
 
    "stats", "clear_stats", "has_stats"
     Method to compute a statistical summary for the data in the dataset,
@@ -117,9 +113,19 @@ TODO
 
     *   Use CHI to cache?
 
+    *   Use schema introspection to generate property attributes with
+        MooseX::Semantics.
+
 BUGS
     Please report any bugs you find to
     <https://github.com/kjetilk/RDF-Generator-Void/issues>
+
+    Note that any claim that this module will generate a void in spacetime,
+    a wormhole, black hole, or funny philosophy is totally bogus and without
+    any scientific merit whatsoever. The lead author has made elaborate
+    precautions to avoid any such issues, and expects everyone to take his
+    word for it. Oh, BTW, should it just happen anyway, it won't <hurt
+    much>.
 
 SUPPORT
     You can find documentation for this module with the perldoc command.
@@ -144,6 +150,9 @@ SUPPORT
         <https://metacpan.org/module/RDF::Generator::Void>
 
 ACKNOWLEDGEMENTS
+    Many thanks to Konstantin Baierer for help with
+    RDF::Generator::Void::Meta::Attribute::ObjectList.
+
 LICENSE AND COPYRIGHT
     Copyright 2012 Kjetil Kjernsmo, Toby Inkster.
 
