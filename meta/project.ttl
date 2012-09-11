@@ -17,10 +17,12 @@ my:project
     :name       "RDF-Generator-Void" ;
     :shortdesc  "Generate voiD descriptions based on data in an RDF model."@en ;
     :created    "2012-06-15"^^xsd:date ;
+    :license     <http://dev.perl.org/licenses/> ;      
     :programming-language "Perl" ;
     :maintainer <http://www.kjetil.kjernsmo.net/foaf#me> ;
     :developer  <http://purl.org/NET/cpan-uri/person/kba>, <http://tobyinkster.co.uk/#i> ;
     :helper <http://data.semanticweb.org/person/tope-omitola> ;
+    :repository <https://github.com/kjetilk/RDF-Generator-Void/> ;
     :bug-database <https://github.com/kjetilk/RDF-Generator-Void/issues> .
 
 
