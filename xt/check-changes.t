@@ -5,21 +5,20 @@ use strict;
 use warnings;
 use Test::More;
 
-my $msg;
-
 unless ( $ENV{RELEASE_TESTING} ) {
-	$msg = "Author tests not required for installation";
+	plan( skip_all => "Author tests not required for installation" );
 }
 
 eval "use Test::RDF::DOAP::Version";
-if ($@) {
-	$msg = "Test::RDF::DOAP::Version required";
+SKIP: {
+	skip "Test::RDF::DOAP::Version required", 1 if ($@);
+	doap_version_ok('RDF-Generator-Void', 'RDF::Generator::Void');
 }
 
-if ($msg) {
-	plan( skip_all => $msg );
+eval 'use Test::CPAN::Changes';
+SKIP: {
+	skip "Test::CPAN::Changes required for this test", 4 if ($@);
+	changes_file_ok();
 }
 
-doap_version_ok('RDF-Generator-Void', 'RDF::Generator::Void');
-
-done_testing;
+done_testing();
