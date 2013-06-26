@@ -105,3 +105,6 @@
 ^inc/Module/Install/ReadmeFromPod.pm$
 ^inc/Module/Install/Repository.pm$
 ^inc/Module/Install/TestBase.pm$
+
+.tar.gz$
+^script/
