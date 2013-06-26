@@ -241,14 +241,14 @@ sub generate {
 													 $void->Dataset,
 													));
 
-	my ($scheme, $auth, $path, $query, $frag) = uri_split($self->dataset_uri);
+	my ($scheme, $auth, $path, $query, $frag) = uri_split($self->dataset_uri->uri_value);
 	if ($frag) { # Then, we have a document that could be described with provenance
-		my $uri = uri_join($scheme, $auth, $path, $query, undef);
+		my $uri = iri(uri_join($scheme, $auth, $path, $query, undef));
 		my $blank = blank();
 		$void_model->add_statement(statement($uri,
 														 $prov->wasGeneratedBy,
 														 $blank));
-		my ($ver) = $VERSION =~ s/\./-/;
+		(my $ver = $VERSION) =~ s/\./-/;
 		my $release_uri = iri("http://purl.org/NET/cpan-uri/dist/RDF-Generator-Void/v_$ver");
 		$void_model->add_statement(statement($blank,
 														 $prov->wasAssociatedWith,
