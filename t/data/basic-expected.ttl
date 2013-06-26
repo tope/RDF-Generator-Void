@@ -8,9 +8,9 @@
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix wv: <http://vocab.org/waiver/terms/norms> .        
 @prefix sd: <http://www.w3.org/ns/sparql-service-description#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 
-
-</dataset> a void:Dataset ;
+</dataset#foo> a void:Dataset ;
 	   dcterms:title "This is a title"@en, "Blåbærsyltetøy"@nb ;
 	   dcterms:license <http://example.org/open-data-license> ;
 	   void:triples 4 ;
@@ -21,3 +21,8 @@
 	   void:uriSpace "http://localhost";
 	   void:sparqlEndpoint <http://localhost/sparql> ;	
 	   void:vocabulary <http://www.w3.org/1999/02/22-rdf-syntax-ns#>, <http://www.w3.org/2000/01/rdf-schema#>, <http://xmlns.com/foaf/0.1/> .
+
+</dataset> prov:wasGeneratedBy _:blank .
+_:blank prov:wasAssociatedWith <http://purl.org/NET/cpan-uri/dist/RDF-Generator-Void/v_0-10> .
+<http://purl.org/NET/cpan-uri/dist/RDF-Generator-Void/v_0-10> a prov:SoftwareAgent ;
+							      rdfs:label "RDF::Generator::Void, Version 0.10"@en .
