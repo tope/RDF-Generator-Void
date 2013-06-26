@@ -24,7 +24,7 @@ my $data_model = RDF::Trine::Model->temporary_model;
 my $parser     = RDF::Trine::Parser->new( 'turtle' );
 $parser->parse_file_into_model( $base_uri, $testdata, $data_model );
 
-my $void_gen = RDF::Generator::Void->new(dataset_uri => $base_uri . '/dataset',
+my $void_gen = RDF::Generator::Void->new(dataset_uri => $base_uri . '/dataset#foo',
 													  inmodel => $data_model, level => 1);
 $void_gen->urispace($base_uri);
 
