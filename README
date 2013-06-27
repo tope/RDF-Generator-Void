@@ -3,7 +3,7 @@ NAME
     RDF model
 
 VERSION
-    Version 0.10
+    Version 0.11_1
 
 SYNOPSIS
       use RDF::Generator::Void;
@@ -124,8 +124,9 @@ BUGS
     a wormhole, black hole, or funny philosophy is totally bogus and without
     any scientific merit whatsoever. The lead author has made elaborate
     precautions to avoid any such issues, and expects everyone to take his
-    word for it. Oh, BTW, should it just happen anyway, it won't <hurt
-    much>.
+    word for it. Oh, BTW, should it just happen anyway, it won't hurt much
+    <http://news.sciencemag.org/sciencenow/2012/03/scienceshot-one-black-hol
+    e-wont-.html>.
 
 SUPPORT
     You can find documentation for this module with the perldoc command.
@@ -154,7 +155,7 @@ ACKNOWLEDGEMENTS
     RDF::Generator::Void::Meta::Attribute::ObjectList.
 
 LICENSE AND COPYRIGHT
-    Copyright 2012 Kjetil Kjernsmo, Toby Inkster.
+    Copyright 2012 Toby Inkster. Copyright 2012-2013 Kjetil Kjernsmo.
 
     This program is free software; you can redistribute it and/or modify it
     under the terms of either: the GNU General Public License as published
