@@ -26,19 +26,26 @@ is($load->exit_code, 0, 'Loading has exit code 0');
 note 'Now test the VoID generation';
 
 my $parser     = RDF::Trine::Parser->new( 'turtle' );
-
-my $result = test_app('App::perlrdf' => [ 'void', '-Q', $filename, '-l', '1', $base_uri . '/dataset#foo' ]);
-
-is($result->error, undef, 'VoID 1 threw no exceptions');
-is($result->exit_code, 0, 'VoID 1 exit code 0');
-ok($result->stdout, 'VoID 1 sends result to STDOUT');
-
-my $data_model = RDF::Trine::Model->temporary_model;
-$parser->parse_into_model( $base_uri, $result->stdout, $data_model );
 my $expected_void_model = RDF::Trine::Model->temporary_model;
 $parser->parse_file_into_model( $base_uri, $expected, $expected_void_model );
 
-are_subgraphs($data_model, $expected_void_model, 'Got the expected VoID description with generated data');
+void_tests('void', '-Q', $filename, '-l', '1', $base_uri . '/dataset#foo' );
 
+sub void_tests {
+  my @args = @_;
+  note 'Run tests for ' . join(" ", @args);
+  my $result = test_app('App::perlrdf' => \@args);
+
+  is($result->error, undef, 'VoID threw no exceptions');
+  is($result->exit_code, 0, 'VoID exit code 0');
+  ok($result->stdout, 'VoID sends result to STDOUT');
+
+  warn $result->stdout;
+
+  my $data_model = RDF::Trine::Model->temporary_model;
+  $parser->parse_into_model( $base_uri, $result->stdout, $data_model );
+
+  are_subgraphs($data_model, $expected_void_model, 'Got the expected VoID description with generated data');
+}
 
 done_testing();
