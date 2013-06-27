@@ -9,6 +9,30 @@ BEGIN {
     $App::perlrdf::Command::Void::VERSION   = '0.01';
 }
 
+=head1 NAME
+
+App::perlrdf::Command::Void - Generate VoID descriptions on the command line
+
+
+=head1 SYNOPSIS
+
+For full documentation, install L<App::perlrdf> and go
+
+  perlrdf void
+
+Typical use might be
+
+  perlrdf store_load -Q=test.sqlite t/data/basic.ttl
+  perlrdf void -Q test.sqlite --endpoint_urls http://example.org/sparql -o - 'http://example.org/void#dataset'
+
+=head1 DESCRIPTION
+
+This module implements functionality so that VoID descriptions can be
+generated on the command line using L<perlrdf>.
+
+=cut
+
+
 use App::perlrdf -command;
 
 use namespace::clean;
@@ -109,4 +133,17 @@ sub execute
     }
 }
  
+
+=head1 FURTHER DOCUMENTATION
+
+Please see L<RDF::Generator::Void> for further documentation.
+
+=head1 AUTHORS AND COPYRIGHT
+
+
+Please see L<RDF::Generator::Void> for information about authors and copyright for this module.
+
+
+=cut
+
 1;
