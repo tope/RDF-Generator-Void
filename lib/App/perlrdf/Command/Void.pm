@@ -30,14 +30,14 @@ use constant opt_spec => (
     [ 'output|o=s@',       'Output filename or URL' ],
     [ 'output-spec|O=s@',  'Output file specification' ],
     [ 'output-format|s=s', 'Output format (mnemonic: serialise)' ],
-	 [ 'dataset_uri',       'The URI of the dataset to be used.' ],
-	 [ 'detail_level',      'The level of detail used for VoID' ],
+	 [ 'detail_level|l=i', 'The level of detail used for VoID', { default => 2 }  ],
+	 [ 'void_urispace=s',   'The URI space a VoID dataset.' ],
 ); # TODO Endpoints, vocab
-use constant usage_desc   => '%c void %o RESOURCE';
+use constant usage_desc   => '%c void %o DATASET_URI';
  
 sub execute
 {
-    require RDF::Trine;
+    use RDF::Trine qw( iri ) ;
     require App::perlrdf::FileSpec::OutputRDF;
 	 use RDF::Generator::Void;
 
@@ -46,9 +46,9 @@ sub execute
     my $store = $self->get_store($opt);
     my $model = RDF::Trine::Model->new($store);
  
-    my $resource = @$arg
-        ? RDF::Trine::iri(shift @$arg)
-        : $self->usage_error("No resource to describe");
+    my $dataset_uri = @$arg
+        ? iri(shift @$arg)
+        : $self->usage_error("No URI for the dataset is given");
  
     my @outputs = $self->get_filespecs(
         'App::perlrdf::FileSpec::OutputRDF',
@@ -70,8 +70,11 @@ sub execute
             $opt->{output_base},
         )
         unless @outputs;
- 
-	 my $generator = RDF::Generator::Void->new(inmodel => $model);
+
+	 my $generator = RDF::Generator::Void->new(inmodel => $model,
+															 dataset_uri => $dataset_uri,
+															 level => $opt->{detail_level},
+															 );
 	 my $description = $generator->generate;
  
     for (@outputs)
