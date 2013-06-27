@@ -30,6 +30,12 @@ Typical use might be
 This module implements functionality so that VoID descriptions can be
 generated on the command line using L<perlrdf>.
 
+=head1 METHODS
+
+=head2 execute
+
+This module only implements one method, execute, which runs the generator.
+
 =cut
 
 
