@@ -30,14 +30,18 @@ use constant opt_spec => (
     [ 'output|o=s@',       'Output filename or URL' ],
     [ 'output-spec|O=s@',  'Output file specification' ],
     [ 'output-format|s=s', 'Output format (mnemonic: serialise)' ],
-	 [ 'detail_level|l=i', 'The level of detail used for VoID', { default => 2 }  ],
+	 [ 'detail_level|l=i',  'The level of detail used for VoID (defaults to 2)', { default => 2 }  ],
 	 [ 'void_urispace=s',   'The URI space a VoID dataset.' ],
-); # TODO Endpoints, vocab
+	 [ 'used_vocabularies=s@', 'URIs of vocabularies used in the data' ],
+	 [ 'endpoint_urls=s@',  'URLs of SPARQL Endpoints that holds the data' ],
+    [ 'void_title=s',      'A title in English for the datasets' ], # TODO: Support more titles
+	 [ 'license_uris=s@',   'URIs to licenses that regulates the use of the dataset'],
+);
 use constant usage_desc   => '%c void %o DATASET_URI';
  
 sub execute
 {
-    use RDF::Trine qw( iri ) ;
+    use RDF::Trine qw( iri literal ) ;
     require App::perlrdf::FileSpec::OutputRDF;
 	 use RDF::Generator::Void;
 
@@ -74,7 +78,23 @@ sub execute
 	 my $generator = RDF::Generator::Void->new(inmodel => $model,
 															 dataset_uri => $dataset_uri,
 															 level => $opt->{detail_level},
-															 );
+															);
+	 if ($opt->{void_urispace}) {
+		$generator->urispace($opt->{void_urispace});
+	 }
+	 if ($opt->{endpoint_urls}) {
+		$generator->add_endpoints(@{$opt->{endpoint_urls}});
+	 }
+	 if ($opt->{used_vocabularies}) {
+		$generator->add_vocabularies(@{$opt->{used_vocabularies}});
+	 }
+	 if ($opt->{license_uris}) {
+		$generator->add_licenses(@{$opt->{license_uris}});
+	 }
+	 if ($opt->{void_title}) {
+		$generator->add_titles(literal($opt->{void_title}, 'en'));
+	 }
+
 	 my $description = $generator->generate;
  
     for (@outputs)
