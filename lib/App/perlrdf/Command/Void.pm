@@ -27,11 +27,11 @@ DESCRIPTION
 use constant opt_spec => (
     __PACKAGE__->store_opt_spec,
     []=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>,
-	 [ 'dataset_uri',       'The URI of the dataset to be used.' ],
-	 [ 'detail_level',      'The level of detail used for VoID' ],
     [ 'output|o=s@',       'Output filename or URL' ],
     [ 'output-spec|O=s@',  'Output file specification' ],
     [ 'output-format|s=s', 'Output format (mnemonic: serialise)' ],
+	 [ 'dataset_uri',       'The URI of the dataset to be used.' ],
+	 [ 'detail_level',      'The level of detail used for VoID' ],
 ); # TODO Endpoints, vocab
 use constant usage_desc   => '%c void %o RESOURCE';
  
