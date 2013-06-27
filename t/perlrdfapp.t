@@ -14,12 +14,14 @@ my $expected = $Bin . '/data/basic-expected.ttl';
 
 note 'First load the data into a SQLite DB';
 my ($fh, $filename) = tempfile();
+$fh->unlink_on_destroy( 1 );
 
+my $load = test_app('App::perlrdf' => [ 'store_load', '-Q', $filename, $testdata ]);
 
-my $load = test_app('App::perlrdf' => qw(store_load -Q $filename -o - $testdata));
-
-is($load->stderr, '', 'nothing sent to STDERR');
+like($load->stderr, qr|^Loading file:///\S+data/basic.ttl$|, 'Loading statement STDERR');
 is($load->error, undef, 'threw no exceptions');
 is($load->exit_code, 0, 'exit code 0');
+
+
 
 done_testing();
