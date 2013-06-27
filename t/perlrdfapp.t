@@ -74,8 +74,6 @@ sub void_tests {
   is($result->exit_code, 0, 'VoID exit code 0');
   ok($result->stdout, 'VoID sends result to STDOUT');
 
-  warn $result->stdout;
-
   my $data_model = RDF::Trine::Model->temporary_model;
   $parser->parse_into_model( $base_uri, $result->stdout, $data_model );
 
