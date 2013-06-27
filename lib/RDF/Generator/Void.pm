@@ -479,7 +479,8 @@ Many thanks to Konstantin Baierer for help with L<RDF::Generator::Void::Meta::At
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2012 Kjetil Kjernsmo, Toby Inkster.
+Copyright 2012 Toby Inkster.
+Copyright 2012-2013 Kjetil Kjernsmo.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
