@@ -8,6 +8,18 @@
 
 my:project :release my:v_0-11_1, my:v_0_02, my:v_0_04, my:v_0_06, my:v_0_10 .
 
+my:v_0-11_1
+    a           :Version ;
+    dc:issued   "2013-06-28"^^xsd:date ;
+    rdfs:label "Some provenance and command line tool."@en ;
+    :revision   "0.11_1"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Author tests changes"@en ; a dcs:Addition ] , 
+        [ rdfs:label "Command-line usage through perlrdf."@en ; a dcs:Addition ] , 
+        [ rdfs:label "Use provenance ontology to assert that this module generated the description."@en ; a dcs:Addition ] 
+    ] .
+
 my:v_0_10
     a           :Version ;
     dc:issued   "2012-09-11"^^xsd:date ;
