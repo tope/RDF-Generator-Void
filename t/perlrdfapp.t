@@ -29,7 +29,41 @@ my $parser     = RDF::Trine::Parser->new( 'turtle' );
 my $expected_void_model = RDF::Trine::Model->temporary_model;
 $parser->parse_file_into_model( $base_uri, $expected, $expected_void_model );
 
-void_tests('void', '-Q', $filename, '-l', '1', $base_uri . '/dataset#foo' );
+{
+  my $model = void_tests('void', '-Q', $filename, '-l', '1', $base_uri . '/dataset#foo' );
+  hasnt_uri('http://purl.org/dc/terms/title', $model, 'Has no title');
+  hasnt_uri('http://rdfs.org/ns/void#uriSpace', $model, 'Has no urispace predicate');
+}
+{
+  my $model = void_tests('void', '-Q', $filename, '-l', '1',
+								 '--license_uris', 'http://example.org/open-data-license',
+								 $base_uri . '/dataset#foo' );
+  has_predicate('http://purl.org/dc/terms/license', $model, 'Has license predicate');
+}
+{
+  my $model = void_tests('void', '-Q', $filename, '-l', '1',
+								 '--license_uris', 'http://example.org/open-data-license', 
+								 '--void_urispace', $base_uri,
+								 $base_uri . '/dataset#foo' );
+  has_predicate('http://purl.org/dc/terms/license', $model, 'Has license predicate');
+  has_literal($base_uri, undef, undef, $model, 'Has urispace object');
+}
+{
+  my $model = void_tests('void', '-Q', $filename, '-l', '1',
+								 '--license_uris', 'http://example.org/open-data-license', 
+								 '--void_title', "This is a title",
+								 $base_uri . '/dataset#foo' );
+  has_predicate('http://purl.org/dc/terms/license', $model, 'Has license predicate');
+  has_literal("This is a title", 'en', undef, $model, 'Has urispace object');
+}
+{
+  my $model = void_tests('void', '-Q', $filename, '-l', '1',
+								 '--endpoint_urls', $base_uri . '/sparql',
+								 $base_uri . '/dataset#foo' );
+  has_predicate('http://rdfs.org/ns/void#sparqlEndpoint', $model, 'Has sparqlEndpoint predicate');
+  has_object_uri($base_uri . '/sparql', $model, 'Has sparqlEndpoint object');
+}
+
 
 sub void_tests {
   my @args = @_;
@@ -46,6 +80,7 @@ sub void_tests {
   $parser->parse_into_model( $base_uri, $result->stdout, $data_model );
 
   are_subgraphs($data_model, $expected_void_model, 'Got the expected VoID description with generated data');
+  return $data_model;
 }
 
 done_testing();
