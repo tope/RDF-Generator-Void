@@ -4,8 +4,7 @@ use Test::More;
 
 eval { require App::perlrdf };
 plan skip_all => "App::perlrdf needed for these tests" if ($@);
-eval { require App::Cmd::Tester };
-plan skip_all => "App::Cmd::Tester needed for these tests" if ($@);
+use App::Cmd::Tester;
 use Test::RDF;
 use FindBin qw($Bin);
 use File::Temp qw(tempfile);
