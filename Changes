@@ -5,7 +5,7 @@ Created:      2012-06-15
 Bug tracker:  <https://github.com/kjetilk/RDF-Generator-Void/issues>
 Maintainer:   Kjetil Kjernsmo <mailto:kjetilk@cpan.org>
 
-0.11_2  2013-06-28  # Some provenance and command line tool.
+0.11_3  2013-06-28  # Some provenance and command line tool.
 
  - (Addition) Author tests changes
  - (Addition) Command-line usage through perlrdf.

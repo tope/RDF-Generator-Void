@@ -23,6 +23,6 @@
 	   void:vocabulary <http://www.w3.org/1999/02/22-rdf-syntax-ns#>, <http://www.w3.org/2000/01/rdf-schema#>, <http://xmlns.com/foaf/0.1/> .
 
 </dataset> prov:wasGeneratedBy _:blank .
-_:blank prov:wasAssociatedWith <http://purl.org/NET/cpan-uri/dist/RDF-Generator-Void/v_0-11_3> .
-<http://purl.org/NET/cpan-uri/dist/RDF-Generator-Void/v_0-11_3> a prov:SoftwareAgent ;
-							      rdfs:label "RDF::Generator::Void, Version 0.11_3"@en .
+_:blank prov:wasAssociatedWith <http://purl.org/NET/cpan-uri/dist/RDF-Generator-Void/v_0-11_4> .
+<http://purl.org/NET/cpan-uri/dist/RDF-Generator-Void/v_0-11_4> a prov:SoftwareAgent ;
+							      rdfs:label "RDF::Generator::Void, Version 0.11_4"@en .
