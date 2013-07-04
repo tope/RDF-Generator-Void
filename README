@@ -3,7 +3,7 @@ NAME
     RDF model
 
 VERSION
-    Version 0.11_3
+    Version 0.11_4
 
 SYNOPSIS
       use RDF::Generator::Void;
