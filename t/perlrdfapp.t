@@ -17,6 +17,10 @@ my $expected = $Bin . '/data/basic-expected.ttl';
 note 'First load the data into a SQLite DB';
 my ($fh, $filename) = tempfile( UNLINK => 1, SUFFIX => '.sqlite');
 
+my $make = test_app('App::perlrdf' => [ 'make_store', '-Q', $filename ]);
+
+is($make->error, undef, 'Init store threw no exceptions');
+
 my $load = test_app('App::perlrdf' => [ 'store_load', '-Q', $filename, $testdata ]);
 
 like($load->stderr, qr|^Loading file:///\S+data/basic.ttl$|, 'Loading statement STDERR');
