@@ -15,7 +15,7 @@ my $testdata = $Bin . '/data/basic.ttl';
 my $expected = $Bin . '/data/basic-expected.ttl';
 
 note 'First load the data into a SQLite DB';
-my ($fh, $filename) = tempfile( UNLINK => 1, SUFFIX => '.sqlite');
+my ($fh, $filename) = tempfile( UNLINK => 1, SUFFIX => '.sqlite', EXLOCK => 0);
 
 my $make = test_app('App::perlrdf' => [ 'make_store', '-Q', $filename ]);
 
