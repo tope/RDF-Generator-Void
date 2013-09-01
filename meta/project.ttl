@@ -22,6 +22,7 @@ my:project
     :maintainer <http://www.kjetil.kjernsmo.net/foaf#me> ;
     :developer  <http://purl.org/NET/cpan-uri/person/kba>, <http://tobyinkster.co.uk/#i> ;
     :helper <http://data.semanticweb.org/person/tope-omitola> ;
+    :homepage <https://metacpan.org/module/RDF::Generator::Void> ;
     :repository [ 
     		  a :GitRepository ; 
 		  :browse <https://github.com/kjetilk/RDF-Generator-Void/> 
