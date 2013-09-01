@@ -27,11 +27,11 @@ RDF::Generator::Void - Generate VoID descriptions based on data in an RDF model
 
 =head1 VERSION
 
-Version 0.13_1
+Version 0.13
 
 =cut
 
-our $VERSION = '0.13_1';
+our $VERSION = '0.13';
 
 =head1 SYNOPSIS
 

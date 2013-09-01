@@ -5,6 +5,11 @@ Created:      2012-06-15
 Bug tracker:  <https://github.com/kjetilk/RDF-Generator-Void/issues>
 Maintainer:   Kjetil Kjernsmo <mailto:kjetilk@cpan.org>
 
+0.13  2013-08-05  # Test bugfix.
+
+ - (Bugfix) Missing EXLOCK caused problems with SQLite on some platforms
+   (again...).
+
 0.12  2013-07-07  # Some provenance and command line tool.
 
  - (Addition) Author tests changes.
