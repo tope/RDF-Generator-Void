@@ -1,10 +1,10 @@
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-
+@prefix result: <http://git2prov.org/git2prov?giturl=https%3A%2F%2Fgithub.com%2Fkjetilk%2FRDF-Generator-Void&serialization=PROV-O#> .
 
 <http://www.kjetil.kjernsmo.net/foaf#me>
     a           foaf:Person ;
-    owl:sameAs  <http://purl.org/NET/cpan-uri/person/kjetilk> ;
+    owl:sameAs  <http://purl.org/NET/cpan-uri/person/kjetilk>, result:user-Kjetil-Kjernsmo ;
     foaf:name   "Kjetil Kjernsmo" ;
     foaf:mbox   <mailto:kjetilk@cpan.org> .
 
@@ -14,6 +14,7 @@
 
 <http://tobyinkster.co.uk/#i>	a               foaf:Person ;
 				foaf:homepage   <http://tobyinkster.co.uk/> ;
+				owl:sameAs      result:user-Toby-Inkster ;
 				foaf:name       "Toby Inkster" .
 
 <http://purl.org/NET/cpan-uri/person/kba> a foaf:Person ;

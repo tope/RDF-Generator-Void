@@ -6,6 +6,7 @@
 @prefix dcs:  <http://ontologi.es/doap-changeset#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#>.
 
 <>
     dc:title     "DOAP for RDF-Generator-Void"@en ;
@@ -25,7 +26,8 @@ my:project
     :homepage <https://metacpan.org/module/RDF::Generator::Void> ;
     :repository [ 
     		  a :GitRepository ; 
-		  :browse <https://github.com/kjetilk/RDF-Generator-Void/> 
+		  :browse <https://github.com/kjetilk/RDF-Generator-Void/> ;
+		  prov:has_provenance <http://git2prov.org/git2prov?giturl=https%3A%2F%2Fgithub.com%2Fkjetilk%2FRDF-Generator-Void&serialization=PROV-O#> 
  		] ;
     :bug-database <https://github.com/kjetilk/RDF-Generator-Void/issues> .
 
