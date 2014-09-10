@@ -3,8 +3,9 @@ package RDF::Generator::Void;
 use 5.006;
 use strict;
 use warnings;
-use Moose;
-use Moose::Util::TypeConstraints;
+use Moo;
+use Types::Standard;
+use Types::URI;
 use Data::UUID;
 use RDF::Trine qw[iri literal blank variable statement];
 use RDF::Generator::Void::Stats;
@@ -76,7 +77,7 @@ Read-only accessor for the URI to the dataset.
 
 has inmodel => (
 					 is       => 'ro',
-					 isa      => 'RDF::Trine::Model',
+					 isa      => InstanceOf['RDF::Trine::Model'],
 					 required => 1,
 					);
 
@@ -176,7 +177,7 @@ is set.
 # more for subsets), thus this is a simple scalar attribute.
 has urispace => (
 					  is        => 'rw',
-					  isa       => 'Str',
+					  isa       => Str,
 					  predicate => 'has_urispace',
 					 );
 
@@ -206,7 +207,7 @@ clear the statistics and C<has_stats> will return true if exists.
 # everything.
 has stats => (
 				  is       => 'rw',
-				  isa      => 'RDF::Generator::Void::Stats',
+				  isa      => InstanceOf['RDF::Generator::Void::Stats'],
 				  lazy     => 1,
 				  builder  => '_build_stats',
 				  clearer  => 'clear_stats',
