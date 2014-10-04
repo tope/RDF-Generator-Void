@@ -7,6 +7,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix prov: <http://www.w3.org/ns/prov#>.
+@prefix cpan-uri: <http://purl.org/NET/cpan-uri/terms#> .
 
 <>
     dc:title     "DOAP for RDF-Generator-Void"@en ;
@@ -31,6 +32,7 @@ my:project
 		  :browse <https://github.com/kjetilk/RDF-Generator-Void/> ;
 		  prov:has_provenance <http://git2prov.org/git2prov?giturl=https%3A%2F%2Fgithub.com%2Fkjetilk%2FRDF-Generator-Void&serialization=PROV-O#> 
  		] ;
+    cpan-uri:x_IRC <irc://irc.perl.org/#perlrdf> ;
     :bug-database <https://github.com/kjetilk/RDF-Generator-Void/issues> .
 
 
