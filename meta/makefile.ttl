@@ -5,15 +5,15 @@
 @prefix :  <http://ontologi.es/doap-deps#> .
 
 <project>
-    :test-requirement [ :on "Test::More 0.88" ];
-    :test-requirement [ :on "Test::RDF 1.10" ];
-    :test-requirement [ :on "FindBin" ];    
-    :test-requirement [ :on "File::Temp" ];
-    :runtime-recommendation [ :on "App::perlrdf 0.004" ];
-    :runtime-requirement [ :on "RDF::Trine" ];
-    :runtime-requirement [ :on  "URI" ];
-    :runtime-requirement [ :on  "Data::UUID"];
-    :runtime-requirement [ :on  "Moose" ];
-    :runtime-requirement [ :on  "aliased" ] .
+    :test-requirement [ :on "Test::More 0.88"^^:CpanId ];
+    :test-requirement [ :on "Test::RDF 1.10"^^:CpanId ];
+    :test-requirement [ :on "FindBin"^^:CpanId ];    
+    :test-requirement [ :on "File::Temp"^^:CpanId ];
+    :runtime-recommendation [ :on "App::perlrdf 0.004"^^:CpanId ];
+    :runtime-requirement [ :on "RDF::Trine"^^:CpanId ];
+    :runtime-requirement [ :on  "URI"^^:CpanId ];
+    :runtime-requirement [ :on  "Data::UUID"^^:CpanId ];
+    :runtime-requirement [ :on  "Moose"^^:CpanId ];
+    :runtime-requirement [ :on  "aliased"^^:CpanId ] .
 
 
