@@ -6,17 +6,17 @@
 @prefix dcs:  <http://ontologi.es/doap-changeset#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-my:project :release my:v_0-13-01, my:v_0-13, my:v_0-12, my:v_0_02, my:v_0_04, my:v_0_06, my:v_0_10 .
+my:project :release my:v_0-14, my:v_0-13, my:v_0-12, my:v_0_02, my:v_0_04, my:v_0_06, my:v_0_10 .
 
 
-my:v_0-13-01
+my:v_0-14
     a           :Version ;
-    dc:issued   "2016-02-08"^^xsd:date ;
+    dc:issued   "2016-02-09"^^xsd:date ;
     rdfs:label "Migrate to Dist::Inkt."@en ;
-    :revision   "0.13_01"^^xsd:string ;
+    :revision   "0.14"^^xsd:string ;
     dcs:changeset [
       dcs:item
-        [ rdfs:label "Migrate to Dist::Inkt"@en ; a dcs:Update ] 
+        [ rdfs:label "Migrate to Dist::Inkt, fixes install problems caused by bundled Scalar::Util."@en ; a dcs:Update ] 
       ] .
 
 my:v_0-13
