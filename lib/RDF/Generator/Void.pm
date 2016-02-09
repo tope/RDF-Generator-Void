@@ -27,11 +27,11 @@ RDF::Generator::Void - Generate VoID descriptions based on data in an RDF model
 
 =head1 VERSION
 
-Version 0.13_01
+Version 0.14
 
 =cut
 
-our $VERSION = '0.13_01';
+our $VERSION = '0.14';
 
 =head1 SYNOPSIS
 
@@ -480,7 +480,7 @@ Many thanks to Konstantin Baierer for help with L<RDF::Generator::Void::Meta::At
 =head1 LICENSE AND COPYRIGHT
 
 Copyright 2012 Toby Inkster.
-Copyright 2012-2013 Kjetil Kjernsmo.
+Copyright 2012,2013,2016 Kjetil Kjernsmo.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
