@@ -9,6 +9,7 @@ plan skip_all => " App::Cmd::Tester needed for these tests" if ($@);
 use Test::RDF;
 use FindBin qw($Bin);
 use File::Temp qw(tempfile);
+use App::Cmd::Tester;
 
 my $base_uri = 'http://localhost';
 
