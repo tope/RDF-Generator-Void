@@ -12,7 +12,7 @@ my:v_0-15_2
     a           :Version ;
     dc:issued   "2016-02-11"^^xsd:date ;
     rdfs:label "Minor fixes."@en ;
-    :revision   "0.15_1"^^xsd:string ;
+    :revision   "0.15_2"^^xsd:string ;
     dcs:changeset [
       dcs:item
         [ rdfs:label "Fix tests when App::Cmd::Tester is not installed."@en ; a dcs:Bugfix ] ,
