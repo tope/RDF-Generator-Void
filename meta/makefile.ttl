@@ -9,6 +9,7 @@
     :test-requirement [ :on "Test::RDF 1.10"^^:CpanId ];
     :test-requirement [ :on "FindBin"^^:CpanId ];    
     :test-requirement [ :on "File::Temp"^^:CpanId ];
+    :test-recommendation [ :on "App::Cmd::Tester"^^:CpanId ];
     :runtime-recommendation [ :on "App::perlrdf 0.004"^^:CpanId ];
     :runtime-requirement [ :on "RDF::Trine"^^:CpanId ];
     :runtime-requirement [ :on  "URI"^^:CpanId ];
