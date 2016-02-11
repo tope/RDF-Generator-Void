@@ -20,3 +20,11 @@
 <http://purl.org/NET/cpan-uri/person/kba> a foaf:Person ;
 	foaf:mbox <mailto:kba@cpan.org> ;
 	foaf:name "Konstantin Baierer" .
+
+<http://purl.org/NET/cpan-uri/person/manwar> a foaf:Person ;
+	foaf:name "Mohammad S Anwar" ;
+        owl:sameAs result:user-Mohammad-S-Anwar .
+
+<http://purl.org/NET/cpan-uri/person/jonass> a foaf:Person ;
+	foaf:mbox <mailto:dr@jones.dk> ;
+	foaf:name "Jonas Smedegaard" .
