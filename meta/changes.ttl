@@ -1,0 +1,106 @@
+@prefix :     <http://usefulinc.com/ns/doap#> .
+@prefix dc:   <http://purl.org/dc/terms/> .
+@prefix my:   <http://purl.org/NET/cpan-uri/dist/RDF-Generator-Void/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dcs:  <http://ontologi.es/doap-changeset#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+my:project :release my:v_0-16, my:v_0-14, my:v_0-13, my:v_0-12, my:v_0_02, my:v_0_04, my:v_0_06, my:v_0_10 .
+
+my:v_0-16
+    a           :Version ;
+    dc:issued   "2016-02-15"^^xsd:date ;
+    rdfs:label "Minor fixes."@en ;
+    :revision   "0.16"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Fix tests when App::Cmd::Tester is not installed."@en ; a dcs:Bugfix ] ,
+        [ rdfs:label "Wrong link in TODO list"@en ; 
+          a dcs:Bugfix ;
+          dcs:blame <http://purl.org/NET/cpan-uri/person/manwar> 
+        ] ,
+        [ rdfs:label "Exclude README.pod from CPAN dist"@en ; 
+          a dcs:Bugfix ;
+          dcs:thanks <http://purl.org/NET/cpan-uri/person/jonass> 
+        ] 
+      ] .
+
+
+my:v_0-14
+    a           :Version ;
+    dc:issued   "2016-02-09"^^xsd:date ;
+    rdfs:label "Migrate to Dist::Inkt."@en ;
+    :revision   "0.14"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Migrate to Dist::Inkt, fixes install problems caused by bundled Scalar::Util."@en ; a dcs:Update ] 
+      ] .
+
+my:v_0-13
+    a           :Version ;
+    dc:issued   "2013-08-05"^^xsd:date ;
+    rdfs:label "Test bugfix."@en ;
+    :revision   "0.13"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Missing EXLOCK caused problems with SQLite on some platforms (again...)."@en ; a dcs:Bugfix ] 
+      ] .
+
+
+my:v_0-12
+    a           :Version ;
+    dc:issued   "2013-07-07"^^xsd:date ;
+    rdfs:label "Some provenance and command line tool."@en ;
+    :revision   "0.12"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Author tests changes."@en ; a dcs:Addition ] , 
+        [ rdfs:label "Command-line usage through perlrdf."@en ; a dcs:Addition ] , 
+        [ rdfs:label "Use provenance ontology to assert that this module generated the description."@en ; a dcs:Addition ] 
+    ] .
+
+my:v_0_10
+    a           :Version ;
+    dc:issued   "2012-09-11"^^xsd:date ;
+    rdfs:label "Big refactoring."@en ;
+    :revision   "0.10"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Make sure it works on old Perls"@en ; a dcs:Bugfix ; 
+	  dcs:blame <http://tobyinkster.co.uk/#i> ] , 
+        [ rdfs:label "Use a trait to fix awful verbosity in attribute names."@en ; a dcs:Change ;
+	  dcs:thanks <http://purl.org/NET/cpan-uri/person/kba> ] , 
+        [ rdfs:label "Add object and subject counts on property partitions"@en ; a dcs:Addition ] , 
+        [ rdfs:label "Add more tests, especially for different levels."@en ; a dcs:Addition ] , 
+        [ rdfs:label "RDF-based packaging."@en ; a dcs:Change ] , 
+        [ rdfs:label "Make most attributes private."@en ; a dcs:Change ] , 
+        [ rdfs:label "Add funny disclaimer."@en ; a dcs:Addition ] 
+    ] .
+ 
+my:v_0_06
+    a           :Version ;
+    dc:issued   "2012-08-22"^^xsd:date ;
+    rdfs:label "More statistics."@en ;
+    :revision   "0.06"^^xsd:string ;
+    dcs:changeset [
+      dcs:item
+        [ rdfs:label "Add class and property partitioning data."@en ; a dcs:Addition ] , 
+        [ rdfs:label "Large test dataset."@en ; a dcs:Addition ] , 
+        [ rdfs:label "More tests (for partitioning in particular)."@en ; a dcs:Addition ] , 
+        [ rdfs:label "Add detail level method."@en ; a dcs:Addition ] , 
+        [ rdfs:label "Some cosmetic fixes."@en ; a dcs:Change ] 
+    ] .
+ 
+
+my:v_0_04
+    a           :Version ;
+    dc:issued   "2012-06-30"^^xsd:date ;
+    rdfs:label "Read static file."@en ;
+    :revision   "0.04"^^xsd:string .
+
+my:v_0_02
+    a           :Version ;
+    dc:issued   "2012-06-20"^^xsd:date ;
+    rdfs:label "Initial release."@en ;
+    :revision   "0.02"^^xsd:string .

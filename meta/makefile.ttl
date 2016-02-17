@@ -1,0 +1,20 @@
+
+# This file provides instructions for packaging.
+
+@base <http://purl.org/NET/cpan-uri/dist/RDF-Generator-Void/> .
+@prefix :  <http://ontologi.es/doap-deps#> .
+
+<project>
+    :test-requirement [ :on "Test::More 0.88"^^:CpanId ];
+    :test-requirement [ :on "Test::RDF 1.10"^^:CpanId ];
+    :test-requirement [ :on "FindBin"^^:CpanId ];    
+    :test-requirement [ :on "File::Temp"^^:CpanId ];
+    :test-recommendation [ :on "App::Cmd::Tester"^^:CpanId ];
+    :runtime-recommendation [ :on "App::perlrdf 0.004"^^:CpanId ];
+    :runtime-requirement [ :on "RDF::Trine"^^:CpanId ];
+    :runtime-requirement [ :on  "URI"^^:CpanId ];
+    :runtime-requirement [ :on  "Data::UUID"^^:CpanId ];
+    :runtime-requirement [ :on  "Moose"^^:CpanId ];
+    :runtime-requirement [ :on  "aliased"^^:CpanId ] .
+
+
